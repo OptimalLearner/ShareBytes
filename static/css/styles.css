@@ -1,0 +1,410 @@
+body {
+    margin :0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100vw;
+    overflow-x: hidden;
+}
+.default-font {
+    font-family: 'Jost', sans-serif;
+}
+/*************************************************/
+/**********      Index Page Styles      **********/
+/*************************************************/
+/**********   Index Page Desktop View   **********/
+.navbar {
+    background-color: #343434;
+    width: 100% !important;
+}
+.navbar-brand {
+    font-family: 'Acme', sans-serif;
+    font-size: 35px;
+    color: #F7FFF7;
+}
+.navbar-brand span {
+    color: #6CA6C1;
+    font-weight: bolder;
+}
+.nav-link {
+    color: #F7FFF7BB;
+    font-size: 20px;
+}
+.nav-link.active {
+    color: #F7FFF7;
+}
+.log-in-nav-btn, .get-started-nav-btn {
+    background-color: #F7FFF7;
+    color: #343434;
+    width: 130px;
+}
+.log-in-nav-btn:hover, .get-started-nav-btn:hover {
+    background-color: #6CA6C1;
+    color: #F7FFF7;
+}
+.main-container {
+    height: 80vh;
+    background-color: #343434;
+}
+.main-container .row {
+    height: 100%;
+    width: 100%;
+}
+.main-container-left h2 {
+    color: #F7FFF7;
+    font-size: 31px;
+}
+.hr1 {
+    margin: 20px 0 15px;
+    width: 140px;
+    border: 2px solid #F7FFF7;
+    background-color: #F7FFF7;
+    border-radius: 5px;
+}
+.main-container-left p {
+    color: #F7FFF7;
+    font-size: 23px;
+}
+.get-started-btn {
+    background-color: #F7FFF7;
+    width: 200px;
+    color: #343434;
+    border-radius: 20px;
+    font-size: 20px;
+    border: none;
+    outline: none;
+}
+.get-started-btn:hover {
+    background-color: #6CA6C1;
+    color: #F7FFF7;
+}
+.vector-container {
+    width: 480px;
+    height: 410px;
+    background: url('../images/main-page-img.svg') no-repeat;
+    background-size: cover;
+}
+.text-container {
+    height: 20vh;
+    background-color: #F7FFF7;
+}
+.text-container .text {
+    color: #343434;
+    font-size: 35px;
+    padding: 0 20px;
+    font-weight: 500;
+}
+.text-container .divider {
+    width: 5px;
+    height: 5px;
+    background-color: #343434;
+    border-radius: 50px;
+    margin-top: 5px;
+}
+.why-share-title, .features-title, .our-partners-title {
+    font-size: 40px;
+}
+.why-share-container {
+    background-color: #343434;
+    color: #F7FFF7;
+    height: 80vh;
+}
+.hr2 {
+    margin: 10px 0 15px;
+    width: 100px;
+    border: 2px solid #F7FFF7;
+    background-color: #F7FFF7;
+    border-radius: 5px;
+}
+.security-vector-container {
+    width: 550px;
+    height: 392px;
+    background: url('../images/main-page-security-img.svg') no-repeat;
+    background-size: cover;
+}
+.why-share-container .row {
+    width: 100%;
+    height: 100%;
+}
+.why-share-container p {
+    font-size: 20px;
+}
+.features {
+    background-color: #F7FFF7;
+    color: #343434;
+    padding-bottom: 45px;
+}
+.features .row {
+    height: 100%;
+    margin: 15px 100px !important;
+}
+.hr3 {
+    margin: 5px 0 25px;
+    width: 70px;
+    border: 2px solid #343434;
+    background-color: #343434;
+    border-radius: 5px;
+}
+.features .card {
+    background-color: transparent;
+    border: none;
+    margin: 0 25px;
+}
+.features .material-icons {
+    font-size: 70px;
+}
+.features .card-title p {
+    font-size: 28px;
+    font-weight: bold;
+}
+.features .card-body .card-text {
+    font-size: 19px;
+}
+.owl-carousel .item{
+    display: block;
+    padding: 30px 0px;
+    margin: 5px;
+    color: #F7FFF7;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    text-align: center;
+}
+.company-container {
+    background-color: #343434;
+    color: #F7FFF7;
+    padding: 25px 45px;
+}
+.company-container img {
+    width: 250px !important;
+    height: 80px;
+}
+.last-container {
+    background-color: #F7FFF7;
+}
+.desktop-btn-1 {
+    width: 100%;
+    background-color: #343434;
+    color: #F7FFF7;
+    padding: 10px 20px;
+}
+.desktop-btn-1:hover {
+    background-color: #6CA6C1;
+    color: #F7FFF7;
+}
+.big-or {
+    font-size: 22px;
+    width: 100%; 
+    text-align: center; 
+    border-bottom: 2px solid #343434;
+    line-height: 8px;
+    margin: 0 0 20px; 
+}
+.big-or span {
+    background-color: #F7FFF7;
+    padding: 0 15px;
+}
+.use-web-app {
+    font-size: 18px;
+    font-weight: bolder;
+    cursor: pointer;
+}
+.use-web-app:hover {
+    color: #6CA6C1;
+}
+footer {
+    background-color: #343434;
+    color: #F7FFF7;
+}
+footer .newletter-container {
+    padding: 10px 25px;
+}
+.newsletter-btn {
+    background-color: #6CA6C1;
+    color: #F7FFF7;
+    padding: 3px 40px;
+    font-size: 19px;
+}
+.newsletter-btn:hover {
+    color: #343434;
+}
+.newletter-container .material-icons {
+    font-size: 18px;
+}
+footer .footer-bottom-container {
+    padding: 10px 5px;
+    font-size: 20px;
+}
+.hr4 {
+    margin: 20px 0 15px;
+    width: 60px;
+    border: 2px solid #F7FFF7;
+    background-color: #F7FFF7;
+    border-radius: 5px;
+}
+.footer-links-container p {
+    cursor: pointer;
+    color: #F7FFF7BB;
+}
+.footer-links-container p:hover {
+    color: #F7FFF7;
+}
+.privacy-policy-text:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+.footer-bottom-container .footer-dot {
+    color: #F7FFF7;
+}
+/********** Index Page Small Laptop View **********/
+@media only screen and (max-width: 1024px) {
+    .main-container-right .vector-container {
+        width: 290px;
+        height: 250px;
+    }
+    .why-share-container {
+        height: 55vh;
+    }
+    .why-share-container .security-vector-container {
+        height: 220px;
+        width: 310px;
+        margin-left: 25px;
+    }
+}
+/**********   Index Page Tablet View    **********/
+@media only screen and (max-width: 961px) {
+    .nav-link {
+        text-align: center;
+    }
+    .navbar-toggler {
+        margin-right: 20px;
+    }
+    .navbar-brand {
+        font-size: 38px;
+    }
+    .nav-link {
+        font-size: 23px;
+    }
+    .main-container {
+        height: 75vh;
+    }
+    .main-container-left h2 {
+        font-size: 27px;
+    }
+    .main-container-left p {
+        font-size: 19px;
+    }
+    .main-container-right .vector-container {
+        width: 300px;
+        height: 260px;
+    }
+    .text-container {
+        height: 25vh;
+    }
+    .why-share-container {
+        height: 55vh;
+    }
+    .why-share-container .security-vector-container {
+        height: 220px;
+        width: 310px;
+        margin-left: 45px;
+    }
+    .why-share-container h2 {
+        font-size: 25px;
+    }
+    .why-share-container p {
+        font-size: 19px;
+        padding: 10px 5px !important;
+    }
+    .why-share-title {
+        font-size: 32px !important;
+    }
+    .features .row {
+        margin: 0 15px !important;
+    }
+    .features .card {
+        margin: 0;
+    }
+    .newsletter-btn {
+        padding: 3px 15px;
+        font-size: 17px;
+    }
+}
+/**********   Index Page Mobile View    **********/
+@media only screen and (max-width: 641px) {
+    .nav-link {
+        text-align: center;
+    }
+    .navbar-toggler {
+        margin-right: 20px;
+    }
+    .main-container {
+        min-height: 100vh;
+    }
+    .main-container-left {
+        margin-top: 75px;
+    }
+    .main-container-left h2 {
+        font-size: 22px;
+    }
+    .main-container-left p {
+        font-size: 18px;
+    }
+    .main-container-right .vector-container {
+        width: 300px;
+        height: 260px;
+    }
+    .text-container {
+        height: 320px;
+    }
+    .text-container .text {
+        padding: 10px 0;
+        font-size: 30px;
+    }
+    .text-container .divider {
+        height: 20px;
+        width: 2.5px;
+        position: relative;
+    }
+    .text-container .divider::before {
+        content: '';
+        position: absolute;
+        top: 9px;
+        left: -9px;
+        height: 3.5px;
+        width: 20px;
+        background-color: #343434;
+        border-radius: 10px;
+    }
+    .why-share-container {
+        min-height: 100vh;
+    }
+    .why-share-container .hr2 {
+        margin: 10px 0 30px;
+    }
+    .why-share-container .security-vector-container {
+        height: 220px;
+        width: 310px;
+    }
+    .why-share-container h2 {
+        font-size: 22px;
+    }
+    .why-share-container p {
+        font-size: 18px;
+    }
+    .why-share-title {
+        font-size: 32px !important;
+    }
+    .features-title, .our-partners-title {
+        font-size: 35px;
+    }
+    .features .row {
+        margin: 0 !important;
+    }
+    .newsletter-btn {
+        padding: 3px 15px;
+        font-size: 17px;
+    }
+    footer .footer-bottom-container {
+        font-size: 19px;
+    }
+}

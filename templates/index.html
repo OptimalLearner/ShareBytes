@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Navbar -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark py-0">
+        <div class="container-fluid py-md-1 px-0">
+            <span class="navbar-brand ps-xl-5 ps-lg-4 ps-5 me-xl-5 me-lg-4"> <span>S</span>hare<span>B</span>ytes </span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse default-font" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-xl-auto me-lg-2 mb-2 mb-lg-0 ms-xl-5 ps-xl-5">
+                    <li class="nav-item me-xl-3 ms-xl-5">
+                        <a class="nav-link active" id="default-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item me-md-3">
+                        <a class="nav-link" id="why-share-link" href="#whysharepart">Why ShareBytes?</a>
+                    </li>
+                    <li class="nav-item me-md-3">
+                        <a class="nav-link" id="features-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item me-md-3">
+                        <a class="nav-link" id="partners-link" href="#partners">Our Partners</a>
+                    </li>
+                    <li class="nav-item me-md-3 d-lg-none">
+                        <a class="nav-link" href="#">Log in</a>
+                    </li>
+                    <li class="nav-item me-md-3 d-lg-none">
+                        <a class="nav-link" href="#">Get Started</a>
+                    </li>
+                </ul>
+                <button class="btn log-in-nav-btn me-md-4 d-none d-lg-block" type="submit">Log in</button>
+                <button class="btn get-started-nav-btn me-md-3 d-none d-lg-block" type="submit">Get started</button>
+            </div>
+        </div>
+    </nav>
+    <!-- Main Container -->
+    <div class="main-container default-font">
+        <div class="row m-0">
+            <div class="col-12 col-md-7 d-flex justify-content-center align-items-center flex-column main-container-left text-center px-4">
+                <h2 class="mx-md-5 px-md-4"><span>ShareBytes</span> helps you securely store and share files and folders with anyone and anywhere</h2>
+                <hr class="hr1" />
+                <p> Easily accessible services from desktops, laptops, mobile devices and tablets </p>
+                <div class="button-group-1">
+                    <button class="btn me-md-3 mt-3 get-started-btn d-flex justify-content-center align-items-center" type="submit">Get started <span class="material-icons ps-1 mt-1"> arrow_right_alt </span></button>
+                </div>
+            </div>
+            <div class="col-12 col-md-5 d-flex justify-content-center align-items-center flex-column main-container-right">
+                <div class="vector-container">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Text Container -->
+    <div class="text-container d-flex justify-content-center align-items-center flex-md-row flex-column default-font">
+        <div class="text text1"> Secured </div>
+        <div class="divider"></div>
+        <div class="text text1"> Organized </div>
+        <div class="divider"></div>
+        <div class="text text1"> Access </div>
+    </div>
+    <!-- Why Share Container -->
+    <div class="why-share-container d-flex align-items-center flex-column default-font" id="whysharepart">
+        <h2 class="why-share-title text-center pt-5"> Why ShareBytes? </h2>
+        <hr class="hr2" />
+        <div class="row m-0">
+            <div class="col-12 col-md-5 d-flex justify-content-center align-items-center flex-column">
+                <div class="security-vector-container"></div>
+            </div>
+            <div class="col-12 col-md-7 d-flex justify-content-center align-items-center flex-column text-center px-4">
+                <h2 class="mx-md-5 mt-4 mt-md-0"> We believe privacy is the fundamental right </h2>
+                <br />
+                <p class="mx-md-5 px-md-5"> ShareBytes cannot access and read your files. ShareBytes's end-to-end encryption only allows the user to access their data. Only those with whom the user shares the files can view the contents of the file. </p>
+            </div>
+        </div>
+    </div>
+    <!-- Features Container -->
+    <div class="features d-flex align-items-center flex-column default-font" id="features">
+        <h2 class="features-title text-center pt-5"> Features </h2>
+        <hr class="hr3" />
+        <div class="row mx-md-3 my-md-5">
+            <div class="col-12 col-md-4">
+                <div class="card text-center">
+                    <div class="card-title m-3 mb-0">
+                        <span class="material-icons">lock</span>
+                        <p class="mb-0"> Secured Storage </p>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text"> Keep all your files private with multiple layers of protection. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card text-center">
+                    <div class="card-title m-3 mb-0">
+                        <span class="material-icons">person_add</span>
+                        <p class="mb-0"> Share quickly </p>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text"> Stay connected and share your files with anyone </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card text-center">
+                    <div class="card-title m-3 mb-0">
+                        <span class="material-icons">devices</span>
+                        <p class="mb-0"> Access Anywhere </p>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text"> Access the files with its link on any type of device </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Our Partners Container -->
+    <div class="company-container default-font" id="partners">
+        <div class="container d-flex justify-content-center align-items-center flex-column">
+            <h2 class="our-partners-title text-center pt-5"> Our Partners </h2>
+            <hr class="hr4" />
+            <div class="owl-carousel owl-theme mt-5">
+                <div class="item d-flex justify-content-center"> <img src="static/images/logo1.svg" alt="National Geographic Logo" /> </div>
+                <div class="item d-flex justify-content-center"> <img src="static/images/logo2.svg" alt="Dentsu Logo" /> </div>
+                <div class="item d-flex justify-content-center"> <img src="static/images/logo3.svg" alt="Servcorp Logo" /> </div>
+                <div class="item d-flex justify-content-center"> <img src="static/images/logo4.svg" alt="News Corp Logo" /> </div>
+                <div class="item d-flex justify-content-center"> <img src="static/images/logo5.svg" alt="Sundance Institute Logo" /> </div>
+                <div class="item d-flex justify-content-center"> <img src="static/images/logo6.svg" alt="Moleskine Logo" /> </div>
+                <div class="item d-flex justify-content-center"> <img src="static/images/logo7.svg" alt="Clear Channel Logo" /> </div>
+            </div>
+        </div>
+    </div>
+    <!-- Use Our App Container -->
+    <div class="last-container py-5 default-font">
+        <div class="container">
+            <div class="row m-0 d-flex align-items-center">
+                <div class="col-lg-6 offset-lg-1 col-md-5 offset-md-1">
+                    <h1 class="text-center text-md-start mb-4 mb-md-0"> The best sharing and storage solution for you </h1>
+                </div>
+                <div class="col-lg-3 offset-lg-1 col-md-4 offset-md-1 d-flex justify-content-center align-items-center flex-column">
+                    <button class="btn desktop-btn-1 d-flex justify-content-center align-items-center"> Download For Desktop <span class="material-icons ps-3">desktop_mac</span> </button>
+                    <p class="m-0 my-4 big-or"><span> OR </span></p>
+                    <p class="m-0 use-web-app"> Use The Web App </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="newletter-container py-4 default-font">
+            <div class="row m-0">
+                <div class="col-12 col-md-6 col-lg-4 mb-2 mb-md-0">
+                    <h3 class="text-center text-md-end"> Subscribe to our newsletter </h3>
+                </div>
+                <div class="col-12 col-md-5 col-lg-7 d-flex justify-content-center align-items-center">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Enter your email address" aria-label="newletter-email" aria-describedby="newsletter" autocomplete="off">
+                        <button class="btn newsletter-btn d-flex justify-content-center align-items-center" type="button" id="newsletter-btn"><span class="d-none d-lg-inline">Send</span> <span class="material-icons ps-0 ps-md-2">subscriptions</span> </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="m-0" />
+        <div class="footer-links-container container default-font">
+            <div class="row mx-3 p-3 pt-4 pb-2">
+                <div class="col-12 col-md-4">
+                    <h3> ShareBytes </h3>
+                    <hr class="hr4" />
+                    <p> Use our Web App </p>
+                    <p> Download our Desktop App </p>
+                </div>
+                <div class="col-12 col-md-4">
+                    <h3> Resources </h3>
+                    <hr class="hr4" />
+                    <p> Our Blog </p>
+                </div>
+                <div class="col-12 col-md-4">
+                    <h3> Support </h3>
+                    <hr class="hr4" />
+                    <p> Help Forum </p>
+                    <p> Contact Us </p>
+                </div>
+            </div>
+        </div>
+        <hr class="m-0" />
+        <div class="footer-bottom-container text-center">
+            <span class="privacy-policy-text">Privacy Policy</span> <span class="footer-dot"> | </span> &copy; All Rights Reserved
+        </div>
+    </footer>
+{% endblock %}
