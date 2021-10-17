@@ -27,7 +27,7 @@ def login():
 # Displays register page
 @app.route('/get-started')
 def signup():
-    return 'Get Started'
+    return render_template('register.html', title='ShareBytes | Getting Started')
 
 if __name__ == '__main__':
     app.run(debug=True) # Debug set to True for development purpose

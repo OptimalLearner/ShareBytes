@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="register-container-overlay"></div>
+    <div class="register-container d-flex justify-content-center align-items-center default-font flex-column">
+        <span class="navbar-brand-extra text-center d-block d-md-none"> <span>S</span>hare<span>B</span>ytes </span>
+        <div class="register-form-container">
+            <div class="register-form">
+                <h3 class="text-center"> Create an account </h3>
+                <hr class="hr5 mx-auto" />
+                <form>
+                    <div class="mb-3 mt-4">
+                        <label for="register-name" class="form-label">ENTER YOUR FULL NAME</label>
+                        <input type="text" class="form-control" id="register-name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="register-email" class="form-label">ENTER YOUR EMAIL ADDRESS</label>
+                        <input type="email" class="form-control" id="register-email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="register-password" class="form-label">ENTER YOUR EMAIL ADDRESS</label>
+                        <input type="password" class="form-control" id="register-password">
+                    </div>
+                    <div class="mb-2">
+                        <label for="register-confirm-password" class="form-label">CONFIRM YOUR PASSWORD</label>
+                        <input type="password" class="form-control" id="register-confirm-password">
+                    </div>
+                    <button type="button" class="btn btn-block register-btn mt-4"> Register </button>
+                    <p class="already-account-message mb-0"> Already have an account? <span>Login</span> </p>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

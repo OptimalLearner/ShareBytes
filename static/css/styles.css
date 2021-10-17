@@ -409,9 +409,9 @@ footer .footer-bottom-container {
     }
 }
 /*************************************************/
-/**********      Login Page Styles      **********/
+/******    Login and Register Page Styles   ******/
 /*************************************************/
-/**********   Login Page Desktop View   **********/
+/***** Login and Register Page Desktop View ******/
 .navbar-brand-extra {
     position: absolute;
     top: 2%;
@@ -419,13 +419,13 @@ footer .footer-bottom-container {
     transform: translateX(-50%);
     font-size: 40px;
 }
-.login-container {
+.login-container, .register-container {
     width: 100vw;
     min-height: 100vh;
     background: url("../images/login-background-img.jpg") no-repeat center center;
     background-size: cover;
 }
-.login-container-overlay {
+.login-container-overlay, .register-container-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -434,13 +434,16 @@ footer .footer-bottom-container {
     background-color: #6CA6C1;
     opacity: 0.6;
 }
-.login-form-container {
+.login-form-container, .register-form-container {
     position: relative;
     width: 720px;
     background-color: #343434;
     color: #F7FFF7;
     border-radius: 10px;
     padding: 30px;
+}
+.register-form-container {
+    width: 480px;
 }
 .login-vector-container {
     width: 260px;
@@ -459,14 +462,14 @@ footer .footer-bottom-container {
     background-color: #F7FFF7;
     border-radius: 5px;
 }
-.login-form-container h3 {
+.login-form-container h3, .register-form-container h3 {
     font-size: 27px;
 }
 .login-form-container .login-message {
     color: #F7FFF7BB;
     font-size: 16px;
 }
-.login-form-container label {
+.login-form-container label, .register-form-container label {
     color: #F7FFF7BB;
     font-size: 15px;
 }
@@ -476,55 +479,56 @@ footer .footer-bottom-container {
     cursor: pointer;
     margin: 5px 0;
 }
-.login-form-container .login-btn {
+.login-form-container .login-btn, .register-form-container .register-btn {
     background-color: #F7FFF7;
     color: #343434;
     width: 100%;
     margin: 10px 0;
     font-size: 18px;
 }
-.login-form-container .login-btn:hover {
+.login-form-container .login-btn:hover, .register-form-container .register-btn:hover {
     background-color: #6CA6C1;
     color: #F7FFF7;
 }
-.login-form-container .no-account-message {
+.login-form-container .no-account-message, .register-form-container .already-account-message {
     color: #F7FFF7BB;
     font-size: 15px;
 }
-.login-form-container .no-account-message span {
+.login-form-container .no-account-message span, .register-form-container .already-account-message span {
     color: #6CA6C1;
     font-size: 17px;
     cursor: pointer;
 }
-.login-form-container .forgot-password-message:hover, .login-form-container .no-account-message span:hover {
+.login-form-container .forgot-password-message:hover {
     text-decoration: underline;
 }
-#login-email, #login-password {
+#login-email, #login-password, #register-name, #register-email, #register-password, #register-confirm-password {
     background-color: #2F2F2F;
     border: 2px solid #222;
     color: #F7FFF7BB;
 }
-#login-password {
+#login-password, #register-password, #register-confirm-password {
     font: large Verdana, sans-serif;
     letter-spacing: 1px;
 }
-/**********   Login Page Tablet View    **********/
+/****** Login and Register Page Tablet View ******/
 @media only screen and (max-width: 761px) {
     .hr5 {
         margin: 5px auto 10px;
     }
 }
-/**********   Login Page Mobile View    **********/
+/****** Login and Register Page Mobile View ******/
 @media only screen and (max-width: 641px) {
-    .login-container {
+    .login-container, .register-container {
         background: #343434;
     }
-    .login-container-overlay {
+    .login-container-overlay, .register-container-overlay {
         display: none;
     }
-    .login-form-container {
+    .login-form-container, .register-form-container {
         width: 100%;
         padding: 20px;
+        background-color: transparent;
     }
     .hr5 {
         margin: 5px auto 10px;
