@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="login-container-overlay"></div>
+    <div class="login-container d-flex justify-content-center align-items-center default-font flex-column">
+        <span class="navbar-brand-extra text-center d-block d-md-none"> <span>S</span>hare<span>B</span>ytes </span>
+            
+        <div class="row login-form-container">
+            <div class="col-lg-7 login-form-left">
+                <h3 class="text-center text-md-start"> Welcome back! </h3>
+                <hr class="hr5" />
+                <p class="login-message text-center text-md-start"> Login to your account </p>
+                <form>
+                    <div class="mb-3">
+                        <label for="login-email" class="form-label">ENTER YOUR EMAIL ADDRESS</label>
+                        <input type="email" class="form-control" id="login-email">
+                    </div>
+                    <div class="mb-2">
+                        <label for="login-password" class="form-label">ENTER YOUR PASSWORD</label>
+                        <input type="password" class="form-control" id="login-password">
+                    </div>
+                    <p class="forgot-password-message"> Forgot your password? </p>
+                    <button type="button" class="btn btn-block login-btn"> Login </button>
+                    <p class="no-account-message mb-0"> Don't have an account? <span>Register</span> </p>
+                </form>
+            </div>
+            <div class="col-lg-5 login-form-right d-none d-lg-flex justify-content-center align-items-center flex-column position-relative">
+                <div class="login-vector-container"></div>
+                <p class="text-center px-5 login-vector-message"> Login to store and share files from anywhere, anytime </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

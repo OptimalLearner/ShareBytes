@@ -22,7 +22,7 @@ def index():
 # Displays login page
 @app.route('/login')
 def login():
-    return 'Login'
+    return render_template('login.html', title='ShareBytes | Login')
 
 # Displays register page
 @app.route('/get-started')
