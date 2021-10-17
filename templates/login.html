@@ -16,17 +16,23 @@
                         <span class="material-icons pe-2">check_circle</span> {{ alertMesage }}
                     </div>
                 {% endif %}
-                <form>
+                <!-- Display Error Message If Any Validation Failed -->
+                {% if error != '' %}
+                    <div class="alert alert-danger py-1 d-flex justify-content-center align-items-center error-message" role="alert">
+                        <span class="material-icons pe-3">warning</span> {{ error }}
+                    </div>
+                {% endif %}
+                <form method="POST" action="/check-login">
                     <div class="mb-3">
                         <label for="login-email" class="form-label">ENTER YOUR EMAIL ADDRESS</label>
-                        <input type="email" class="form-control" id="login-email">
+                        <input type="email" class="form-control" id="login-email" name="login-email">
                     </div>
                     <div class="mb-2">
                         <label for="login-password" class="form-label">ENTER YOUR PASSWORD</label>
-                        <input type="password" class="form-control" id="login-password">
+                        <input type="password" class="form-control" id="login-password" name="login-password">
                     </div>
                     <p class="forgot-password-message"> Forgot your password? </p>
-                    <button type="button" class="btn btn-block login-btn"> Login </button>
+                    <button type="submit" class="btn btn-block login-btn"> Login </button>
                     <p class="no-account-message mb-0"> Don't have an account? <span>Register</span> </p>
                 </form>
             </div>
