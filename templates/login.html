@@ -10,6 +10,12 @@
                 <h3 class="text-center text-md-start"> Welcome back! </h3>
                 <hr class="hr5" />
                 <p class="login-message text-center text-md-start"> Login to your account </p>
+                <!-- Display Alert Message If Registration Successful -->
+                {% if alertMesage != '' %}
+                    <div class="alert alert-success py-1 d-flex justify-content-center align-items-center success-message" role="alert">
+                        <span class="material-icons pe-2">check_circle</span> {{ alertMesage }}
+                    </div>
+                {% endif %}
                 <form>
                     <div class="mb-3">
                         <label for="login-email" class="form-label">ENTER YOUR EMAIL ADDRESS</label>

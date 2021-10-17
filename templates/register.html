@@ -8,24 +8,30 @@
             <div class="register-form">
                 <h3 class="text-center"> Create an account </h3>
                 <hr class="hr5 mx-auto" />
-                <form>
+                <!-- Display Error Message If Any Validation Failed -->
+                {% if error != '' %}
+                    <div class="alert alert-danger py-1 d-flex justify-content-center align-items-center error-message" role="alert">
+                        <span class="material-icons pe-3">warning</span> {{ error }}
+                    </div>
+                {% endif %}
+                <form method="POST" action="/handle-register">
                     <div class="mb-3 mt-4">
                         <label for="register-name" class="form-label">ENTER YOUR FULL NAME</label>
-                        <input type="text" class="form-control" id="register-name">
+                        <input type="text" class="form-control" id="register-name" name="register-name" value={{ value[0] }}>
                     </div>
                     <div class="mb-3">
                         <label for="register-email" class="form-label">ENTER YOUR EMAIL ADDRESS</label>
-                        <input type="email" class="form-control" id="register-email">
+                        <input type="email" class="form-control" id="register-email" name="register-email" value={{ value[1] }}>
                     </div>
                     <div class="mb-3">
                         <label for="register-password" class="form-label">ENTER YOUR PASSWORD</label>
-                        <input type="password" class="form-control" id="register-password">
+                        <input type="password" class="form-control" id="register-password" name="register-password" value={{ value[2] }}>
                     </div>
                     <div class="mb-2">
                         <label for="register-confirm-password" class="form-label">CONFIRM YOUR PASSWORD</label>
-                        <input type="password" class="form-control" id="register-confirm-password">
+                        <input type="password" class="form-control" id="register-confirm-password" name="register-confirm-password" value={{ value[3] }}>
                     </div>
-                    <button type="button" class="btn btn-block register-btn mt-4"> Register </button>
+                    <button type="submit" class="btn btn-block register-btn mt-4"> Register </button>
                     <p class="already-account-message mb-0"> Already have an account? <span>Login</span> </p>
                 </form>
             </div>

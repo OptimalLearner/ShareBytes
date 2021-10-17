@@ -511,6 +511,9 @@ footer .footer-bottom-container {
     font: large Verdana, sans-serif;
     letter-spacing: 1px;
 }
+.error-message {
+    font-size: 20px;
+}
 /****** Login and Register Page Tablet View ******/
 @media only screen and (max-width: 761px) {
     .hr5 {
