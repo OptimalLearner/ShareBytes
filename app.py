@@ -163,5 +163,11 @@ def checkLogin():
         session['userToken'] = randomSessionHash
         return redirect('/main')
 
+@app.route('/logout')
+def logout():
+    session.pop('userToken', None)
+    session['registerSuccess'] = 'You are now logged out.'
+    return redirect('/login')
+
 if __name__ == '__main__':
     app.run(debug=True) # Debug set to True for development purpose
