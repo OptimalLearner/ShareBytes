@@ -26,6 +26,10 @@ def index():
 # Displays login page
 @app.route('/login')
 def login():
+    # Redirect to main page if already logged in
+    if 'userToken' in session:
+        return redirect('/main')
+
     alertMesage = ''
     # Add success message if any
     if 'registerSuccess' in session:
@@ -44,6 +48,10 @@ def login():
 # Displays register page
 @app.route('/get-started')
 def register():
+    # Redirect to main page if already logged in
+    if 'userToken' in session:
+        return redirect('/main')
+
     error = ''
     default_form_values = ''
     # Add error message if any
