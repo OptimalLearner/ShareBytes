@@ -496,9 +496,10 @@ footer .footer-bottom-container {
     color: #F7FFF7BB;
     font-size: 15px;
 }
-.login-form-container .no-account-message span, .register-form-container .already-account-message span {
+.login-form-container .no-account-message a, .register-form-container .already-account-message a {
     color: #6CA6C1;
     font-size: 17px;
+    text-decoration: none;
     cursor: pointer;
 }
 .login-form-container .forgot-password-message:hover {

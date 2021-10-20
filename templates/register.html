@@ -32,7 +32,7 @@
                         <input type="password" class="form-control" id="register-confirm-password" name="register-confirm-password" value={{ value[3] }}>
                     </div>
                     <button type="submit" class="btn btn-block register-btn mt-4"> Register </button>
-                    <p class="already-account-message mb-0"> Already have an account? <span>Login</span> </p>
+                    <p class="already-account-message mb-0"> Already have an account? <a href="{{ url_for('login') }}">Login</a> </p>
                 </form>
             </div>
         </div>
