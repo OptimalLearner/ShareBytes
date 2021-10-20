@@ -207,6 +207,8 @@ body {
     font-size: 18px;
     font-weight: bolder;
     cursor: pointer;
+    color: #343434;
+    text-decoration: none;
 }
 .use-web-app:hover {
     color: #6CA6C1;
