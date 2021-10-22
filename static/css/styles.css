@@ -541,3 +541,81 @@ footer .footer-bottom-container {
         margin-bottom: 35px;
     }
 }
+/*************************************************/
+/************    Files Page Styles   *************/
+/*************************************************/
+/*********** Files Page Desktop View *************/
+.nav-user, .nav-user:hover {
+    color: #F7FFF7;
+    font-size: 19px;
+}
+.tooltip.show {
+    opacity: 1;
+}
+.tooltip-inner {
+    background-color: #2F3061;
+    color: #F7FFF7;
+    padding: 5px 20px;
+}
+.navbar-collapse {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.files-container {
+    background-color: #F7FFF7;
+}
+.files-container-top h2 {
+    font-size: 28px;
+}
+.hr6 {
+    margin: 5px 0 10px;
+    width: 70px;
+    border: 2px solid #343434;
+    background-color: #343434;
+    border-radius: 5px;
+}
+.files-container-top .upload-files-btn {
+    background-color: #6CA6C1;
+    color: #F7FFF7;
+    padding: 7px 40px;
+    border-radius: 30px;
+    font-size: 20px;
+    border: none;
+    outline: none;
+}
+.no-result-vector-container {
+    width: 400px;
+    height: 390.5px;
+    background: url('../images/files-page-no-result-img.svg') no-repeat;
+    background-size: cover;
+    margin: 40px 0;
+}
+.no-upload-message {
+    text-align: center;
+    padding-bottom: 40px;
+}
+.files-table {
+    width: 70vw;
+    margin: 50px 0 60px;
+}
+.files-table th {
+    font-size: 24px;
+    color: #6CA6C1;
+    padding: 10px 0 10px 20px;
+}
+.files-table td {
+    font-size: 20px;
+    color: #343434;
+    padding: 15px 0 15px 20px;
+}
+.share-file-btn, .delete-file-btn {
+    background-color: #343434;
+    color: #F7FFF7;
+    margin: 0 10px;
+    padding: 5px 25px;
+}
+.share-file-btn:hover, .delete-file-btn:hover {
+    background-color: #6CA6C1;
+    color: #F7FFF7;
+}

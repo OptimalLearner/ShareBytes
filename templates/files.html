@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark py-0">
+        <div class="container-fluid py-md-1 px-0">
+            <span class="navbar-brand ps-xl-5 ps-lg-4 ps-5 me-xl-5 me-lg-4"> <span>S</span>hare<span>B</span>ytes </span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse default-font" id="navbarTogglerDemo02">
+                <span class="btn nav-user me-md-5 d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ user }} currently logged in">{{ user }}</span>
+                <a href="{{ url_for('logout') }}" class="btn get-started-nav-btn me-lg-4 d-none d-lg-block">Logout</a>
+            </div>
+        </div>
+    </nav>
+    <div class="files-container default-font">
+        <div class="row files-container-top pt-5 pb-3 d-flex justify-content-center align-items-center">
+            <div class="col-lg-4 offset-lg-2">
+                <h2> Your Uploads </h2>
+                <hr class="hr6" />
+            </div>
+            <div class="col-lg-4 offset-lg-2">
+                <button class="btn upload-files-btn d-flex justify-content-center align-items-center"> <span class="material-icons pe-2"> add </span> Upload </button>
+            </div>
+        </div>
+        {% if fileCount==0 %}
+        <div class="row d-flex justify-content-center align-items-center m-0">
+            <div class="no-result-vector-container"> </div>
+            <h2 class="no-upload-message"> You do not have any uploads yet :-( </h2>
+        </div>
+        {% else %}
+        <div class="container d-flex justify-content-center align-items-center">
+            <table class="table files-table">
+                <thead class="table-dark">
+                    <tr>
+                        <th style="width: 35%;">File name</th>
+                        <th style="width: 20%;">File Size</th>
+                        <th style="width: 20%;">Uploaded</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for file in uploadedFiles %}
+                    <tr>
+                        <td>{{ file['originalFileName'] }}</td>
+                        <td>{{ file['fileSize'] }}</td>
+                        <td>{{ file['formattedTime'] }}</td>
+                        <td class="d-flex justify-content-center align-items-center"> <button class="btn share-file-btn"> Share </button> <button class="btn delete-file-btn"> Delete </button> </td>
+                    </tr>
+                    {% endfor %}                   
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block custom_scripts %}
+    <!-- Custom JS Script for Index Page -->
+    <script>
+        let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+    </script>
+{% endblock %}

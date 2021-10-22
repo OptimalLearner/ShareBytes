@@ -4,6 +4,7 @@ from flask_pymongo import PyMongo
 from cfg import config
 from utils import get_random_string
 import json
+import math
 from hashlib import sha256
 from datetime import datetime
 
@@ -64,6 +65,15 @@ def register():
         session.pop('value', None)
     return render_template('register.html', title='ShareBytes | Getting Started', error=error, value=default_form_values)
 
+def get_converted_file_size(size_bytes):
+    if size_bytes == 0:
+        return "0B"
+    size_name = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
+    i = int(math.floor(math.log(size_bytes, 1024)))
+    p = math.pow(1024, i)
+    s = round(size_bytes / p, 2)
+    return "{0} {1}".format(s, size_name[i])
+
 # Displays the main page after successful login
 @app.route('/main')
 def main():
@@ -78,7 +88,25 @@ def main():
         session.pop('userToken', None)
         session['error'] = 'You must login again to access this page'
         return redirect('/login')
-    return 'Main Page'
+
+    user_id = token_document['userID']
+
+    uploaded_files = mongo.db.files.find({
+        'userId': user_id,
+        'isActive': True
+    }).sort('createdAt', -1)
+
+    uploaded_files_for_display = []
+    for file in uploaded_files:
+        current_time = datetime.utcnow()
+        date_diff = current_time - file['createdAt']
+        file['formattedTime'] = str(date_diff.days) + ' days ago' if date_diff.days < 31 else file['createdAt'].strftime("%Y-%m-%d")
+        file['fileSize'] = get_converted_file_size(file['fileSize'])
+        uploaded_files_for_display.append(file)
+
+    file_count = uploaded_files.count()
+    user = session['user']
+    return render_template('files.html', title='ShareBytes | Store and Share your file anyone, anywhere', user=user, uploadedFiles=uploaded_files_for_display, fileCount=file_count)
 
 @app.route('/handle-register', methods=['POST'])
 def handleRegister():
@@ -169,6 +197,7 @@ def checkLogin():
         })
 
         session['userToken'] = randomSessionHash
+        session['user'] = email
         return redirect('/main')
 
 @app.route('/logout')
