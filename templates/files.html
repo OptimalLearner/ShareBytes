@@ -21,7 +21,7 @@
                 <hr class="hr6" />
             </div>
             <div class="col-lg-4 offset-lg-2">
-                <button class="btn upload-files-btn d-flex justify-content-center align-items-center"> <span class="material-icons pe-2"> add </span> Upload </button>
+                <button class="btn upload-files-btn d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#uploadFileModal" data-bs-whatever="File"> <span class="material-icons pe-2"> add </span> Upload </button>
             </div>
         </div>
         {% if fileCount==0 %}
@@ -54,6 +54,25 @@
         </div>
         {% endif %}
     </div>
+    <div class="modal fade" id="uploadFileModal" tabindex="-1" aria-labelledby="uploadFileModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel"> Upload a new file </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="d-flex flex-column align-items-center" method="POST" action="">
+                        <label for="formFile" class="form-label text-center px-2 pb-3"> Click below to select a file or drag & drop a file here, you wish to upload to the below container. </label>
+                        <div class="file-drag-area mb-3">
+                            <input class="form-control" type="file" id="formFile">
+                        </div>
+                        <button type="submit" class="btn upload-file-modal-button mt-2"> Upload Selected File </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block custom_scripts %}
@@ -63,5 +82,14 @@
         let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         });
+
+        var exampleModal = document.getElementById('uploadFileModal')
+        exampleModal.addEventListener('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            var button = event.relatedTarget
+            // Extract info from data-bs-* attributes
+            var recipient = button.getAttribute('data-bs-whatever')
+            
+        })
     </script>
 {% endblock %}

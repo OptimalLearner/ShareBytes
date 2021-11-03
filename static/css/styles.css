@@ -619,3 +619,23 @@ footer .footer-bottom-container {
     background-color: #6CA6C1;
     color: #F7FFF7;
 }
+.file-drag-area {
+    width: 100%;
+    background-color: #343434;
+    color: #F7FFF7;
+    border: 2px dashed #2F3061;
+    border-radius: 5px;
+    padding: 20px;
+}
+.upload-file-modal-button {
+    width: 250px;
+    background-color: #343434;
+    color: #F7FFF7;
+    margin: 0 10px;
+    padding: 5px 25px;
+    border-radius: 20px;
+}
+.upload-file-modal-button:hover {
+    background-color: #6CA6C1;
+    color: #F7FFF7;
+}
