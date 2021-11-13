@@ -1,3 +1,4 @@
 # The below files and directories won't be pushed on the remote repository.
 __pycache__
 venv
+uploads

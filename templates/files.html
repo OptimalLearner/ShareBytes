@@ -4,38 +4,54 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark py-0">
         <div class="container-fluid py-md-1 px-0">
-            <span class="navbar-brand ps-xl-5 ps-lg-4 ps-5 me-xl-5 me-lg-4"> <span>S</span>hare<span>B</span>ytes </span>
+            <span class="navbar-brand ps-xl-5 ps-lg-4 ps-3 me-xl-5 me-lg-4"> <span>S</span>hare<span>B</span>ytes </span>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse default-font" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-xl-auto me-lg-2 mb-2 mb-lg-0 ms-xl-5 ps-xl-5">
+                    <li class="nav-item me-xl-3 ms-xl-5">
+                        <span class="btn nav-user me-md-5 d-block d-lg-none d-flex" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ user }} currently logged in"> <span class="material-icons pe-1">person_outline</span> {{ user }}</span>
+                    </li>
+                    <li class="nav-item me-xl-3 ms-xl-5">
+                        <a href="{{ url_for('logout') }}" class="nav-link d-block d-lg-none" id="default-link" href="#">Logout</a>
+                    </li>
+                </ul>
                 <span class="btn nav-user me-md-5 d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ user }} currently logged in">{{ user }}</span>
-                <a href="{{ url_for('logout') }}" class="btn get-started-nav-btn me-lg-4 d-none d-lg-block">Logout</a>
+                <a href="{{ url_for('logout') }}" class="btn get-started-nav-btn me-lg-5 d-none d-lg-block">Logout</a>
             </div>
         </div>
     </nav>
     <div class="files-container default-font">
-        <div class="row files-container-top pt-5 pb-3 d-flex justify-content-center align-items-center">
-            <div class="col-lg-4 offset-lg-2">
+        <div class="row files-container-top pt-5 pb-1 d-flex justify-content-center align-items-center">
+            <div class="col-md-4 offset-md-2 d-md-inline d-flex justify-content-center align-items-center flex-column">
                 <h2> Your Uploads </h2>
                 <hr class="hr6" />
             </div>
-            <div class="col-lg-4 offset-lg-2">
-                <button class="btn upload-files-btn d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#uploadFileModal" data-bs-whatever="File"> <span class="material-icons pe-2"> add </span> Upload </button>
+            <div class="col-md-4 offset-md-2 d-md-inline d-flex justify-content-end align-items-center mt-md-0 me-md-0 mt-3 me-4">
+                <button class="btn upload-files-btn d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#uploadFileModal"> <span class="material-icons pe-2"> add </span> Upload </button>
             </div>
         </div>
+        <!-- Display Error Message If Any Validation Failed -->
+        {% if error != '' %}
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-danger py-1 m-0 d-flex justify-content-center align-items-center error-message w-50 w-md-100" role="alert">
+                    <span class="material-icons pe-3">warning</span> {{ error }}
+                </div>
+            </div>
+        {% endif %}
         {% if fileCount==0 %}
         <div class="row d-flex justify-content-center align-items-center m-0">
             <div class="no-result-vector-container"> </div>
             <h2 class="no-upload-message"> You do not have any uploads yet :-( </h2>
         </div>
         {% else %}
-        <div class="container d-flex justify-content-center align-items-center">
+        <div class="container d-md-flex justify-content-center align-items-center d-block table-responsive">
             <table class="table files-table">
                 <thead class="table-dark">
                     <tr>
                         <th style="width: 35%;">File name</th>
-                        <th style="width: 20%;">File Size</th>
+                        <th style="width: 25%;">File Size</th>
                         <th style="width: 20%;">Uploaded</th>
                         <th></th>
                     </tr>
@@ -46,7 +62,7 @@
                         <td>{{ file['originalFileName'] }}</td>
                         <td>{{ file['fileSize'] }}</td>
                         <td>{{ file['formattedTime'] }}</td>
-                        <td class="d-flex justify-content-center align-items-center"> <button class="btn share-file-btn"> Share </button> <button class="btn delete-file-btn"> Delete </button> </td>
+                        <td class="d-flex justify-content-center align-items-center"> <button class="btn share-file-btn" data-bs-toggle="modal" data-bs-target="#shareFileModal" data-bs-fileid="{{ file['_id'] }}" data-bs-filename="{{ file['originalFileName'] }}"> Share </button> <button class="btn delete-file-btn" data-bs-fileid="{{ file['_id'] }}"> Delete </button> </td>
                     </tr>
                     {% endfor %}                   
                 </tbody>
@@ -62,10 +78,10 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="d-flex flex-column align-items-center" method="POST" action="">
+                    <form class="d-flex flex-column align-items-center" method="POST" action="/handle_file_upload" enctype="multipart/form-data">
                         <label for="formFile" class="form-label text-center px-2 pb-3"> Click below to select a file or drag & drop a file here, you wish to upload to the below container. </label>
                         <div class="file-drag-area mb-3">
-                            <input class="form-control" type="file" id="formFile">
+                            <input class="form-control" type="file" id="formFile" name="uploaded_file">
                         </div>
                         <button type="submit" class="btn upload-file-modal-button mt-2"> Upload Selected File </button>
                     </form>
@@ -73,23 +89,57 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="shareFileModal" tabindex="-1" aria-labelledby="shareFileModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel"> Share your file </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center"> You can share the link of your file with your friends/colleagues. </p>
+                    <div class="file-link-container text-center d-flex flex-row row mx-2" data-bs-placement="bottom" title="Text Copied">
+                        <div class="col-12 file-link"> http:localhost:5000/files/fjd66d67g656d6g4d6h/abc.png </div>
+                    </div>
+                    <button class="btn copy-link-btn d-flex justify-content-center align-items-center my-3 mx-auto"> Copy Link To Clipboard <span class="material-icons ps-1"> content_copy </span> </button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block custom_scripts %}
-    <!-- Custom JS Script for Index Page -->
+    <!-- Custom JS Script for Files Page -->
     <script>
         let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         });
+        
+        let sligify = (filename) => {
+            return filename.replace(' ', '-').replace("*", '-').replace("+", '-');
+        }
 
-        var exampleModal = document.getElementById('uploadFileModal')
-        exampleModal.addEventListener('show.bs.modal', function (event) {
-            // Button that triggered the modal
-            var button = event.relatedTarget
-            // Extract info from data-bs-* attributes
-            var recipient = button.getAttribute('data-bs-whatever')
-            
-        })
+        window.addEventListener('DOMContentLoaded', (event) => {
+            [...document.querySelectorAll(".share-file-btn")].forEach(el => el.addEventListener('click',function (e) {
+            const fileId = this.getAttribute("data-bs-fileid");
+            const fileName = this.getAttribute("data-bs-filename");
+            const slugifiedFileName = sligify(fileName);
+            const permaLink = 'http://localhost:5000' + '/download/' + fileId + '/' + slugifiedFileName;
+            document.querySelector(".file-link").innerHTML = permaLink;
+            }))
+        });
+
+        function handleCopyText() {
+            const cb = navigator.clipboard;
+            const text = document.querySelector('.file-link');
+            cb.writeText(text.innerText).then(() => alert('Text copied'));
+            document.querySelector(".file-link-container").tooltip("show");
+        }
+
+        document.querySelector(".copy-link-btn").addEventListener("click", handleCopyText)
+
+
     </script>
 {% endblock %}

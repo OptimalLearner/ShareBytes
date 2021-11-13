@@ -560,7 +560,7 @@ footer .footer-bottom-container {
 .navbar-collapse {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
 }
 .files-container {
     background-color: #F7FFF7;
@@ -627,7 +627,7 @@ footer .footer-bottom-container {
     border-radius: 5px;
     padding: 20px;
 }
-.upload-file-modal-button {
+.upload-file-modal-button, .copy-link-btn {
     width: 250px;
     background-color: #343434;
     color: #F7FFF7;
@@ -635,7 +635,94 @@ footer .footer-bottom-container {
     padding: 5px 25px;
     border-radius: 20px;
 }
-.upload-file-modal-button:hover {
+.upload-file-modal-button:hover, .copy-link-btn:hover {
     background-color: #6CA6C1;
     color: #F7FFF7;
+}
+.copy-link-btn {
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 16px;
+}
+.file-link-container {
+    background-color: #343434;
+    color: #F7FFF7;
+    border-radius: 10px;
+    padding: 10px 10px;
+    cursor: pointer;
+}
+.file-link {
+    word-wrap: break-word;
+}
+/*********** Files Page Desktop View *************/
+@media only screen and (max-width: 641px) {
+    .files-container-top .upload-files-btn {
+        font-size: 18px;
+    }
+    .files-table {
+        margin: 25px 0;
+    }
+    .files-table th {
+        font-size: 19px;
+        padding: 10px;
+    }
+    .files-table td {
+        font-size: 17px;
+        padding: 10px 15px;
+    }
+    .no-result-vector-container {
+        width: 180px;
+        height: 175.5px;
+    }
+    .no-upload-message {
+        padding: 10px 45px 40px;
+    }
+}
+/*************************************************/
+/************  Download Page Styles **************/
+/*************************************************/
+/********* Download Page Desktop View ************/
+.download-container {
+    background-color: #F7FFF7;
+}
+.download-vector-container {
+    width: 270px;
+    height: 250px;
+    background: url('../images/download-page-img.svg') no-repeat;
+    background-size: cover;
+}
+.download-header {
+    font-size: 27px;
+    font-weight: bolder;
+}
+.file-name {
+    font-size: 20px;
+}
+.file-info-table {
+    width: 70%;
+    font-size: 20px;
+}
+.download-btn {
+    background-color: #6CA6C1;
+    width: 200px;
+    color: #F7FFF7;
+    border-radius: 20px;
+    font-size: 20px;
+    border: none;
+    outline: none;
+}
+.download-btn:hover {
+    background-color: #343434;
+    color: #F7FFF7;
+}
+/********* Download Page Mobile View ************/
+@media only screen and (max-width: 641px) {
+    .file-info-table th {
+        font-size: 19px;
+        padding: 10px;
+    }
+    .file-info-table td {
+        font-size: 17px;
+        padding: 10px 15px;
+    }
 }

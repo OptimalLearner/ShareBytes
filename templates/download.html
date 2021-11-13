@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark py-0">
+        <div class="container-fluid py-md-1 px-0">
+            <span class="navbar-brand ps-xl-5 ps-lg-4 ps-3 me-xl-5 me-lg-4"> <span>S</span>hare<span>B</span>ytes </span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse default-font" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-xl-auto me-lg-2 mb-2 mb-lg-0 ms-xl-5 ps-xl-5">
+                    <li class="nav-item me-xl-3 ms-xl-5">
+                        <span class="btn nav-user me-md-5 d-block d-lg-none d-flex" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ user }} currently logged in"> <span class="material-icons pe-1">person_outline</span> {{ user }}</span>
+                    </li>
+                    <li class="nav-item me-xl-3 ms-xl-5">
+                        <a href="{{ url_for('logout') }}" class="nav-link d-block d-lg-none" id="default-link" href="#">Logout</a>
+                    </li>
+                </ul>
+                <span class="btn nav-user me-md-5 d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ user }} currently logged in">{{ user }}</span>
+                <a href="{{ url_for('logout') }}" class="btn get-started-nav-btn me-lg-5 d-none d-lg-block">Logout</a>
+            </div>
+        </div>
+    </nav>
+    <div class="download-container default-font">
+        <div class="row">
+            <div class="col-12 my-4 d-flex justify-content-center align-items-center">
+                <div class="download-vector-container"> </div>
+            </div>
+            <div class="col-12 mt-2 mb-4 d-flex justify-content-center align-items-center flex-column">
+                <h4 class="download-header"> Download this file </h4>
+                <table class="table file-info-table text-center mt-3 mb-4">
+                    <thead>
+                        <tr class="table-dark">
+                            <th scope="col">File Name</th>
+                            <th scope="col">File Size</th>
+                            <th scope="col">Uploaded</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row"> {{file["originalFileName"]}} </th>
+                            <td> {{file["fileSize"]}} </td>
+                            <td> {{file["createdAt"]}} </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a href="/download-file/{{file['_id']}}" target="_blank" class="btn download-btn d-flex justify-content-center align-items-center"> <span class="material-icons pe-1"> file_download </span> Download </a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block custom_scripts %}
+    <!-- Custom JS Script for Download Page -->
+    <script>
+        let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+    </script>
+{% endblock %}

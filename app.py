@@ -1,17 +1,22 @@
 # Import all the necessary modules here
-from flask import Flask, render_template, abort, request, redirect, session
+from flask import Flask, render_template, abort, request, redirect, session, send_file
 from flask_pymongo import PyMongo
 from cfg import config
 from utils import get_random_string
+from werkzeug.utils import secure_filename
 import json
 import math
+import os
 from hashlib import sha256
 from datetime import datetime
+from bson import ObjectId
 
 app = Flask(__name__)
 app.secret_key = b'delph@!#78d%'
 # Set configurations for flask environment
 app.config["MONGO_URI"] = config['mongo_uri']
+app.config["UPLOAD_FOLDER"] = 'uploads'
+app.config["MAX_CONTENT_LENGTH"] = 1024 * 1024 *10
 mongo = PyMongo(app)
 
 # Displays index page
@@ -30,7 +35,8 @@ def login():
     # Redirect to main page if already logged in
     if 'userToken' in session:
         return redirect('/main')
-
+    if session['redirectPage'] is None:
+        session['redirectPage'] = '/main'
     alertMesage = ''
     # Add success message if any
     if 'registerSuccess' in session:
@@ -77,8 +83,14 @@ def get_converted_file_size(size_bytes):
 # Displays the main page after successful login
 @app.route('/main')
 def main():
+    error = ''
+    if 'error' in session:
+        error = session['error']
+        session.pop('error', None)
+
     if not 'userToken' in session:
         session['error'] = 'You must login to access this page'
+        session['redirectPage'] = '/main'
         return redirect('/login')
 
     token_document = mongo.db.user_tokens.find_one({
@@ -87,6 +99,7 @@ def main():
     if token_document is None:
         session.pop('userToken', None)
         session['error'] = 'You must login again to access this page'
+        session['redirectPage'] = '/main'
         return redirect('/login')
 
     user_id = token_document['userID']
@@ -106,7 +119,7 @@ def main():
 
     file_count = uploaded_files.count()
     user = session['user']
-    return render_template('files.html', title='ShareBytes | Store and Share your file anyone, anywhere', user=user, uploadedFiles=uploaded_files_for_display, fileCount=file_count)
+    return render_template('files.html', title='ShareBytes | Store and Share your file anyone, anywhere', user=user, uploadedFiles=uploaded_files_for_display, fileCount=file_count, error=error)
 
 @app.route('/handle-register', methods=['POST'])
 def handleRegister():
@@ -198,13 +211,143 @@ def checkLogin():
 
         session['userToken'] = randomSessionHash
         session['user'] = email
-        return redirect('/main')
+        if session['redirectPage'] == '/main':
+            return redirect('/main')
+        else:
+            path = session['redirectPage']
+            session['redirectPage'] = '/main'
+            return redirect(path)
 
 @app.route('/logout')
 def logout():
     session.pop('userToken', None)
     session['registerSuccess'] = 'You are now logged out.'
     return redirect('/login')
+
+def validateFileType(filename):
+    ALLOWED_EXTENSIONS = ['jpg', 'jpeg', 'png', 'gif', 'svg']
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@app.route('/handle_file_upload', methods=['POST'])
+def handleFileUpload():
+    if request.method == 'POST':
+        if not 'userToken' in session:
+            session['error'] = 'You must login to access this page'
+            return redirect('/login')
+
+        token_document = mongo.db.user_tokens.find_one({
+            'sessionHash': session['userToken']
+        })
+        if token_document is None:
+            session.pop('userToken', None)
+            session['error'] = 'You must login again to access this page'
+            return redirect('/login')
+
+
+        if 'uploaded_file' not in request.files:
+            session['error'] = 'No file uploaded!'
+            return redirect('/main')
+        uploaded_file = request.files['uploaded_file']
+        print(uploaded_file)
+
+        if uploaded_file.filename == '':
+            session['error'] = 'No file selected!'
+            return redirect('/main')
+
+        if not validateFileType(uploaded_file.filename):
+            session['error'] = 'File type not supported currently!'
+            return redirect('/main')
+
+
+        filename = secure_filename(uploaded_file.filename)
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        uploaded_file.save(filepath)
+        extension = uploaded_file.filename.rsplit('.', 1)[1].lower()
+        size = os.stat(filepath).st_size
+
+        result = mongo.db.files.insert_one({
+            'userId': token_document['userID'],
+            'originalFileName': uploaded_file.filename,
+            'fileType': extension,
+            'fileSize': size,
+            'fileHash': sha256(uploaded_file.read()).hexdigest(),
+            'filePath': filepath,
+            'isActive': True,
+            'createdAt': datetime.utcnow(),
+            'updatedAt': datetime.utcnow()
+        })
+
+        return redirect('/main')
+
+@app.errorhandler(413)
+def too_large(e):
+    session['error'] = 'File size is too large. Max file size supported is {0} MB'.format(app.config["MAX_CONTENT_LENGTH"])
+    return redirect('/main')
+
+@app.route('/download/<fileId>/<fileNameSlugified>', methods=["GET"])
+def showDownloadPage(fileId, fileNameSlugified):
+    if not 'userToken' in session:
+        session['error'] = 'You must login to access this page'
+        session['redirectPage'] = '/download/' + fileId + '/' + fileNameSlugified
+        return redirect('/login')
+
+    token_document = mongo.db.user_tokens.find_one({
+        'sessionHash': session['userToken']
+    })
+    if token_document is None:
+        session.pop('userToken', None)
+        session['error'] = 'You must login again to access this page'
+        return redirect('/login')
+
+    userId = token_document['userID']
+    users = mongo.db.users.find_one({
+        '_id': userId
+    })
+
+    file_object = None
+    file_object = mongo.db.files.find_one({
+        '_id': ObjectId(fileId)
+    })
+    if file_object is None:
+        return abort(404)
+
+    file_object['fileSize'] = get_converted_file_size(file_object['fileSize'])
+    current_time = datetime.utcnow()
+    date_diff = current_time - file_object['createdAt']
+    file_object['createdAt'] = str(date_diff.days) + ' days ago' if date_diff.days < 31 else file_object['createdAt'].strftime("%Y-%m-%d")
+        
+
+    return render_template('download.html', title='ShareBytes | Download Your File', user=users['email'], file=file_object)
+
+@app.route('/download-file/<fileId>', methods=['GET'])
+def downloadFile(fileId):
+    if not 'userToken' in session:
+        session['error'] = 'You must login to access this page'
+        session['redirectPage'] = '/download-file/' + fileId
+        return redirect('/login')
+
+    token_document = mongo.db.user_tokens.find_one({
+        'sessionHash': session['userToken']
+    })
+    if token_document is None:
+        session.pop('userToken', None)
+        session['error'] = 'You must login again to access this page'
+        return redirect('/login')
+
+    file_object = None
+    file_object = mongo.db.files.find_one({
+        '_id': ObjectId(fileId)
+    })
+    if file_object is None:
+        return abort(404)
+
+    path = file_object['filePath']
+    try:
+        return send_file(path, as_attachment=True)
+    except FileNotFoundError:
+        return abort(404)
+    
 
 if __name__ == '__main__':
     app.run(debug=True) # Debug set to True for development purpose
