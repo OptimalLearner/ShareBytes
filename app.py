@@ -350,6 +350,10 @@ def downloadFile(fileId):
         return send_file(path, as_attachment=True)
     except FileNotFoundError:
         return abort(404)
+
+@app.errorhandler(404)
+def fileNotFound(e):
+    return render_template('404.html', title='ShareBytes | 404 Page Not Found')
     
 
 if __name__ == '__main__':
