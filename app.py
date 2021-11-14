@@ -35,7 +35,10 @@ def login():
     # Redirect to main page if already logged in
     if 'userToken' in session:
         return redirect('/main')
-    if session['redirectPage'] is None:
+    try:
+        if session['redirectPage'] is None:
+            session['redirectPage'] = '/main'
+    except KeyError:
         session['redirectPage'] = '/main'
     alertMesage = ''
     # Add success message if any
