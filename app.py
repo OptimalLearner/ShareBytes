@@ -354,7 +354,21 @@ def downloadFile(fileId):
 @app.errorhandler(404)
 def fileNotFound(e):
     return render_template('404.html', title='ShareBytes | 404 Page Not Found')
-    
+
+@app.route('/subscribe-to-newsletter',methods=['GET', 'POST'])
+def addEmailToNewsletterList():
+    if request.method == 'POST':
+        email = request.json['newsletterEmail']
+        print(email)
+        token_document = mongo.db.newsletter.find_one({
+            'email': email
+        })
+        if token_document is not None:
+            return json.dumps({'message': 'Email Already Subscribed'})
+        result = mongo.db.newsletter.insert_one({
+            'email': email
+        })
+        return json.dumps({'message': 'Subscribed To The Newsletter'})
 
 if __name__ == '__main__':
     app.run(debug=True) # Debug set to True for development purpose
