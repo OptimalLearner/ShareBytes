@@ -250,10 +250,6 @@ footer .footer-bottom-container {
 .footer-links-container p:hover {
     color: #F7FFF7;
 }
-.privacy-policy-text:hover {
-    text-decoration: underline;
-    cursor: pointer;
-}
 .footer-bottom-container .footer-dot {
     color: #F7FFF7;
 }
