@@ -107,10 +107,12 @@
             </div>
         </div>
     </div>
+    {% include 'partials/footer.html' %}
 {% endblock %}
 
 {% block custom_scripts %}
     <!-- Custom JS Script for Files Page -->
+    <script src="{{ url_for('static', filename='js/footer.js') }}"></script>
     <script>
         let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
