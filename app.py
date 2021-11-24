@@ -370,5 +370,16 @@ def addEmailToNewsletterList():
         })
         return json.dumps({'message': 'Subscribed To The Newsletter'})
 
+@app.route('/download-desktop-app')
+def downloadDesktopApp():
+    back = ''
+    try:
+        back = request.referrer
+        if back is None:
+            raise Exception
+    except:
+        back = 'http://localhost:5000'
+    return render_template('desktop_app.html', title='ShareBytes | Desktop App Coming Soon', back=back)
+
 if __name__ == '__main__':
     app.run(debug=True) # Debug set to True for development purpose

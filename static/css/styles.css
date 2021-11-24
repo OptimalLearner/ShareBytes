@@ -243,11 +243,12 @@ footer .footer-bottom-container {
     background-color: #F7FFF7;
     border-radius: 5px;
 }
-.footer-links-container p {
+.footer-links-container p, .footer-links-container a {
     cursor: pointer;
     color: #F7FFF7BB;
+    text-decoration: none;
 }
-.footer-links-container p:hover {
+.footer-links-container p:hover, .footer-links-container a:hover {
     color: #F7FFF7;
 }
 .footer-bottom-container .footer-dot {
@@ -767,5 +768,57 @@ footer .footer-bottom-container {
     .info-2, .info-3 {
         font-size: 18px;
         margin: 10px 25px;
+    }
+}
+/*************************************************/
+/***********  Desktop App Page Styles ************/
+/*************************************************/
+/********* Desktop App Page Desktop View *********/
+.download-app-container {
+    background-color: #343434;
+    width: 100vw;
+    height: 100vh;
+    color: #F7FFF7;
+    padding: 0 15px;
+}
+.coming-soon-title {
+    background: url("../images/login-background-img.jpg") repeat;
+    background-size: cover;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Acme', sans-serif;
+    font-size: 100px;
+    font-weight: bolder;
+}
+.construction-vector-container {
+    width: 420px;
+    height: 250px;
+    background: url('../images/desktop-app-page-img.svg') no-repeat;
+    background-size: cover;
+    margin: 25px 0;
+}
+.coming-soon-text {
+    font-size: 22px;
+    margin: 10px 15% 20px;
+    text-align: center;
+}
+.go-back-btn {
+    background-color: #F7FFF7;
+    color: #343434;
+    width: 130px;
+}
+/********* Desktop App Page Mobile View *********/
+@media only screen and (max-width: 641px) {
+    .coming-soon-title {
+        font-size: 65px;
+        padding: 0 50px;
+        text-align: center;
+    }
+    .construction-vector-container {
+        width: 250px;
+        height: 150px;
+    }
+    .coming-soon-text {
+        font-size: 20px;
     }
 }
