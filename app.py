@@ -381,5 +381,30 @@ def downloadDesktopApp():
         back = 'http://localhost:5000'
     return render_template('desktop_app.html', title='ShareBytes | Desktop App Coming Soon', back=back)
 
+@app.route('/contact')
+def contact():
+    message = ''
+    # Add any message if any
+    if 'contact_us_success' in session:
+        message = session['contact_us_success']
+        session.pop('contact_us_success', None)
+    return render_template('contact_us.html', title='ShareBytes | Contact Us', message=message)
+
+@app.route('/get-contact-details', methods=['POST'])
+def getContactDetails():
+    if request.method == 'POST':
+        name = request.form['contact-name'].strip()
+        email = request.form['contact-email'].strip()
+        message = request.form['contact-message'].strip()
+        print(name, message, email)
+        result = mongo.db.contact_us_details.insert_one({
+            'name': name,
+            'email': email,
+            'message': message,
+            'createdAt': datetime.utcnow()
+        })
+        session['contact_us_success'] = 'Your message is sent. You\'ll soon be contacted by our team.' 
+        return redirect('contact')
+
 if __name__ == '__main__':
     app.run(debug=True) # Debug set to True for development purpose

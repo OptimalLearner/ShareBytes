@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="contact-us-container default-font">
+        <div class="contact-us-banner text-center">
+            <a href="{{ url_for('index') }}" class="navbar-brand-extra contact-us-brand ps-xl-5 ps-lg-4 ps-5 me-xl-5 me-lg-4"> <span>S</span>hare<span>B</span>ytes </a>
+            <h1> Contact Us </h1>
+            <p> Questions, bug report, feature request, feedback - we're here for it all. </p>
+        </div>
+        <form method="POST" action="{{ url_for('getContactDetails') }}" class="contact-form d-flex justify-content-center align-items-center flex-column mx-auto">
+            {% if message != '' %}
+                <div class="alert alert-success py-1 d-flex justify-content-center align-items-center success-message" role="alert">
+                    <span class="material-icons pe-2">check_circle</span> {{ message }}
+                </div>
+            {% endif %}
+            <div class="mb-3 w-100">
+                <label for="contact-name" class="form-label">Your Name</label>
+                <input type="text" class="form-control" id="contact-name" name="contact-name" required>
+            </div>
+            <div class="mb-3 w-100">
+                <label for="contact-email" class="form-label">Your Email Address</label>
+                <input type="email" class="form-control" id="contact-email" name="contact-email" required>
+            </div>
+            <div class="mb-4 w-100">
+                <label for="contact-message" class="form-label">Your Message</label>
+                <textarea class="form-control" id="contact-message" name="contact-message" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn contact-us-button">Send</button>
+        </form>
+    </div>
+{% endblock %}
