@@ -91,6 +91,11 @@ def main():
         error = session['error']
         session.pop('error', None)
 
+    success = ''
+    if 'fileDeleted' in session:
+        success = session['fileDeleted']
+        session.pop('fileDeleted', None) 
+
     if not 'userToken' in session:
         session['error'] = 'You must login to access this page'
         session['redirectPage'] = '/main'
@@ -122,7 +127,7 @@ def main():
 
     file_count = uploaded_files.count()
     user = session['user']
-    return render_template('files.html', title='ShareBytes | Store and Share your file anyone, anywhere', user=user, uploadedFiles=uploaded_files_for_display, fileCount=file_count, error=error)
+    return render_template('files.html', title='ShareBytes | Store and Share your file anyone, anywhere', user=user, uploadedFiles=uploaded_files_for_display, fileCount=file_count, error=error, success=success)
 
 @app.route('/handle-register', methods=['POST'])
 def handleRegister():
@@ -310,7 +315,8 @@ def showDownloadPage(fileId, fileNameSlugified):
 
     file_object = None
     file_object = mongo.db.files.find_one({
-        '_id': ObjectId(fileId)
+        '_id': ObjectId(fileId),
+        'isActive': True
     })
     if file_object is None:
         return abort(404)
@@ -340,7 +346,8 @@ def downloadFile(fileId):
 
     file_object = None
     file_object = mongo.db.files.find_one({
-        '_id': ObjectId(fileId)
+        '_id': ObjectId(fileId),
+        'isActive': True
     })
     if file_object is None:
         return abort(404)
@@ -354,6 +361,16 @@ def downloadFile(fileId):
 @app.errorhandler(404)
 def fileNotFound(e):
     return render_template('404.html', title='ShareBytes | 404 Page Not Found')
+
+@app.route('/handle-delete/<id>')
+def handleDelete(id):
+    post = mongo.db.files.update({
+        '_id': ObjectId(id)
+    }, {
+        'isActive': False
+    })
+    session['fileDeleted'] = 'The selected file has ben deleted!'
+    return redirect('/main')
 
 @app.route('/subscribe-to-newsletter',methods=['GET', 'POST'])
 def addEmailToNewsletterList():

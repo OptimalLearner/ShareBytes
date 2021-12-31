@@ -32,6 +32,14 @@
                 <button class="btn upload-files-btn d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#uploadFileModal"> <span class="material-icons pe-2"> add </span> Upload </button>
             </div>
         </div>
+        <!-- Display Alert Message If File Deletion Successful -->
+        {% if success != '' %}
+            <div class="d-flex justify-content-center align-items-center"></div>
+                <div class="alert alert-success py-1 d-flex justify-content-center align-items-center success-message w-50 w-md-100 mx-auto" role="alert">
+                    <span class="material-icons pe-2">check_circle</span> {{ success }}
+                </div>
+            </div>
+        {% endif %}
         <!-- Display Error Message If Any Validation Failed -->
         {% if error != '' %}
             <div class="d-flex justify-content-center">
@@ -62,7 +70,7 @@
                         <td>{{ file['originalFileName'] }}</td>
                         <td>{{ file['fileSize'] }}</td>
                         <td>{{ file['formattedTime'] }}</td>
-                        <td class="d-flex justify-content-center align-items-center"> <button class="btn share-file-btn" data-bs-toggle="modal" data-bs-target="#shareFileModal" data-bs-fileid="{{ file['_id'] }}" data-bs-filename="{{ file['originalFileName'] }}"> Share </button> <button class="btn delete-file-btn" data-bs-fileid="{{ file['_id'] }}"> Delete </button> </td>
+                        <td class="d-flex justify-content-center align-items-center"> <button class="btn share-file-btn" data-bs-toggle="modal" data-bs-target="#shareFileModal" data-bs-fileid="{{ file['_id'] }}" data-bs-filename="{{ file['originalFileName'] }}"> Share </button> <a href="{{ url_for('handleDelete', id=file['_id']) }}" class="btn delete-file-btn" data-bs-fileid="{{ file['_id'] }}"> Delete </a> </td>
                     </tr>
                     {% endfor %}                   
                 </tbody>
