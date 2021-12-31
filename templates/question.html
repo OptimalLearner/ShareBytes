@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark py-0">
+        <div class="container-fluid py-md-1 px-0">
+            <span class="navbar-brand ps-xl-5 ps-lg-4 ps-3 me-xl-5 me-lg-4"> <span>S</span>hare<span>B</span>ytes </span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse default-font" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-xl-auto me-lg-2 mb-2 mb-lg-0 ms-xl-5 ps-xl-5">
+                    <li class="nav-item me-xl-3 ms-xl-5">
+                        <span class="btn nav-user me-md-5 d-block d-lg-none d-flex" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ user }} currently logged in"> <span class="material-icons pe-1">person_outline</span> {{ user }}</span>
+                    </li>
+                    <li class="nav-item me-xl-3 ms-xl-5">
+                        <a href="{{ url_for('logout') }}" class="nav-link d-block d-lg-none" id="default-link" href="#">Logout</a>
+                    </li>
+                </ul>
+                <span class="btn nav-user me-md-5 d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ user }} currently logged in">{{ user }}</span>
+                <a href="{{ url_for('logout') }}" class="btn get-started-nav-btn me-lg-5 d-none d-lg-block">Logout</a>
+            </div>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="question-container container col-10 col-md-6 default-font">
+            <a href="{{ url_for('helpForum') }}" class="back-to-help d-flex mt-3">
+                <span class="material-icons pe-2">west</span> Back
+            </a>
+            <div class="question-border d-flex flex-column align-items-center">
+                <h2> Ask your question </h2>
+                <hr class="hr3" />
+                <form method="POST" action="{{ url_for('addQuestion') }}" style="width: 80%;">
+                    <div class="my-3">
+                        <label for="question" class="form-label">Enter Question: </label>
+                        <input type="text" class="form-control" id="question" name="question" autocomplete="off" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Enter Description: </label>
+                        <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn submit-questions-btn mt-2">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

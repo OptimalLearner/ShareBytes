@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark py-0">
+        <div class="container-fluid py-md-1 px-0">
+            <span class="navbar-brand ps-xl-5 ps-lg-4 ps-3 me-xl-5 me-lg-4"> <span>S</span>hare<span>B</span>ytes </span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse default-font" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-xl-auto me-lg-2 mb-2 mb-lg-0 ms-xl-5 ps-xl-5">
+                    <li class="nav-item me-xl-3 ms-xl-5">
+                        <span class="btn nav-user me-md-5 d-block d-lg-none d-flex" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ user }} currently logged in"> <span class="material-icons pe-1">person_outline</span> {{ user }}</span>
+                    </li>
+                    <li class="nav-item me-xl-3 ms-xl-5">
+                        <a href="{{ url_for('logout') }}" class="nav-link d-block d-lg-none" id="default-link" href="#">Logout</a>
+                    </li>
+                </ul>
+                <span class="btn nav-user me-md-5 d-none d-lg-block" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{ user }} currently logged in">{{ user }}</span>
+                <a href="{{ url_for('logout') }}" class="btn get-started-nav-btn me-lg-5 d-none d-lg-block">Logout</a>
+            </div>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="post-container container col-xl-6 col-10 default-font">
+            {% if post == [] %}
+                <h2 class="text-center mt-5"> Post Not Found </h2>
+            {% else %}
+            <a href="{{ url_for('helpForum') }}" class="back-to-help d-flex mt-3">
+                <span class="material-icons pe-2">west</span> Back
+            </a>
+            <div class="question-border">
+                <h2 class="mt-1"> Q: {{ post['question'] }} </h2>
+                <h4 class="ms-5"> {{ post['description'] }} </h4>
+                <span class="float-end"> Posted on {{ post['postedAt'] }} </span>
+                <hr class="mt-5" />
+                <h4> {{ post['totalAnswers'] }} Answers </h4>
+                {% for item in post['comments'] %}
+                <div class="card my-3">
+                    <div class="card-body py-2 px-3">
+                        <h5 class="card-title"> {{ item['message'] }} </h5>
+                        <p class="card-text mb-0 float-end"> ~ {{ item['postedBy'] }} </p> <br />
+                        <p class="card-text mb-0 float-end"> Posted on {{ item['postedAt'] }} </p>
+                    </div>
+                </div>
+                {% endfor %}
+                <hr class="mt-4" />
+                <form method="POST" action="{{ url_for('addComment', id=post['_id']) }}">
+                    <div class="mb-2">
+                        <label for="comment" class="form-label">Write Your Comment: </label>
+                        <textarea class="form-control" id="comment" name="comment" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn submit-questions-btn mt-2">Post</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

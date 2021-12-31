@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="help-forum-container default-font">
+        <div class="help-forum-top d-flex justify-content-center align-items-center flex-column">
+            <span class="navbar-brand-extra text-center mt-1"> <span>S</span>hare<span>B</span>ytes </span>
+            <p class="welcome"> Welcome to ShareBytes Help Forum </p>
+            <div class="help-forum-vector-container"> </div>
+        </div>
+        <div class="recent-threads">
+            <div class="accordion ask-new-question mb-4">
+                <div class="accordion-item p-3">
+                    <p class="m-0 d-flex align-items-center flex-column flex-xl-row"> Didn't find your issues in the already posted doubts? <a href="{{ url_for('question') }}" class="ask-now-btn d-flex ms-3 mt-xl-1 mt-3"> Ask now <span class="material-icons ms-1">east</span> </a> </p>
+                </div>
+            </div>
+            <h2> Recent Threads </h2>
+            <hr class="hr3" />
+            {% for item in posts %}
+            <div class="accordion" id="accordionList">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="accordion-header">
+                        <a href="{{ url_for('post', id=item['_id']) }}" class="accordion-button collapsed" type="button">
+                            Q: {{ item['question'] }}
+                        </a>
+                    </h2>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% include 'partials/footer.html' %}
+{% endblock %}

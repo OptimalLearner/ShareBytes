@@ -248,6 +248,7 @@ footer .footer-bottom-container {
     cursor: pointer;
     color: #F7FFF7BB;
     text-decoration: none;
+    display: block;
 }
 .footer-links-container p:hover, .footer-links-container a:hover {
     color: #F7FFF7;
@@ -914,5 +915,148 @@ footer .footer-bottom-container {
     .contact-us-container .contact-us-banner {
         height: 200px;
         padding: 100px 25px 200px;
+    }
+}
+/*************************************************/
+/************ Help Forum Page Styles *************/
+/*************************************************/
+/********* Help Forum Page Desktop View **********/
+.help-forum-container .help-forum-top {
+    min-height: 50vh;
+    background-color: #343434;
+    position: relative;
+    padding: 25px 0;
+}
+.help-forum-container .navbar-brand-extra {
+    position: static;
+    transform: translateX(0);
+    font-size: 50px;
+}
+.help-forum-container .welcome {
+    font-size: 30px;
+    margin: 5px 0 30px;
+    color: #F7FFF7;
+}
+.help-forum-container .help-forum-vector-container {
+    width: 330px;
+    height: 270px;
+    background: url('../images/help-forum-page-img.svg') no-repeat;
+    background-size: cover;
+}
+.help-forum-container .recent-threads {
+    padding: 25px 150px;
+}
+.help-forum-container .accordion-button::after {
+    transform: rotate(270deg);
+}
+.ask-now-btn {
+    background-color: #343434;
+    color: #F7FFF7;
+    margin: 0 10px;
+    padding: 3px 25px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+}
+.ask-now-btn:hover {
+    color: #F7FFF7;
+}
+.recent-threads .accordion a {
+    text-decoration: none;
+}
+.recent-threads .accordion-button, .recent-threads .accordion-item p {
+    font-size: 17px;
+}
+/********* Help Forum Page Mobile View **********/
+@media only screen and (max-width: 641px) {
+    .help-forum-container .navbar-brand-extra {
+        font-size: 40px;
+    }
+    .help-forum-container .welcome {
+        font-size: 22px;
+        padding: 1px 15px;
+        text-align: center;
+    }
+    .help-forum-container .help-forum-vector-container {
+        width: 230px;
+        height: 190px;
+    }
+    .recent-threads {
+        padding: 20px !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .recent-threads .ask-now-btn {
+        margin: 5px !important;
+    }
+    .recent-threads .ask-new-question, .recent-threads #accordionList {
+        width: 80vw;
+    }
+}
+/*************************************************/
+/********** Ask Questions Page Styles ************/
+/*************************************************/
+/******* Ask Questions Page Desktop View *********/
+.question-container {
+    padding: 20px 10px;
+}
+.question-container .back-to-help {
+    cursor: pointer;
+    text-decoration: none;
+    color: #343434;
+}
+.question-container h2 {
+    font-size: 30px;
+    text-align: center;
+}
+.question-border {
+    border: 2px solid #34343434;
+    border-radius: 10px;
+    margin: 50px 0;
+    padding: 40px 30px;
+}
+.submit-questions-btn {
+    background-color: #343434;
+    width: 150px;
+    color: #F7FFF7;
+    border-radius: 5px;
+    font-size: 18px;
+    border: none;
+    outline: none;
+}
+.submit-questions-btn:hover {
+    background-color: #6CA6C1;
+    color: #343434;
+}
+/*************************************************/
+/************ View Posts Page Styles *************/
+/*************************************************/
+/********* View Posts Page Desktop View **********/
+.post-container h2 {
+    font-size: 28px;
+}
+.post-container h4 {
+    font-size: 20px;
+    margin-top: 25px;
+}
+.post-container form {
+    margin-top: 20px;
+}
+.post-container .back-to-help {
+    cursor: pointer;
+    text-decoration: none;
+    color: #343434;
+}
+/********* View Posts Page Mobile View **********/
+@media only screen and (max-width: 641px) {
+    .post-container h2 {
+        font-size: 22px;
+        text-align: justify;
+    }
+    .post-container h4 {
+        font-size: 18px;
+        margin-left: 5px !important;
+        text-align: justify;
     }
 }

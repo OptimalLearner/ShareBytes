@@ -1,5 +1,5 @@
 # Import all the necessary modules here
-from flask import Flask, render_template, abort, request, redirect, session, send_file
+from flask import Flask, render_template, abort, request, redirect, session, send_file, url_for
 from flask_pymongo import PyMongo
 from cfg import config
 from utils import get_random_string
@@ -405,6 +405,88 @@ def getContactDetails():
         })
         session['contact_us_success'] = 'Your message is sent. You\'ll soon be contacted by our team.' 
         return redirect('contact')
+
+@app.route('/help-forum')
+def helpForum():
+    all_posts = mongo.db.posts.find({})
+    return render_template('help_forum.html', title='ShareBytes | Help Forum', posts=all_posts)
+
+@app.route('/post/<id>')
+def post(id):
+    if not 'userToken' in session:
+        session['error'] = 'You must login to access this page'
+        session['redirectPage'] = '/post/' + id
+        return redirect('/login')
+
+    try: 
+        fetch_post = mongo.db.posts.find_one({
+            '_id': ObjectId(id)
+        })
+    except:
+        abort(404)
+
+    if fetch_post is not None:
+        fetch_post['postedAt'] = fetch_post['postedAt'].strftime('%b %d %Y %I:%M%p')
+        for item in fetch_post['comments']:
+            item['postedAt'] = item['postedAt'].strftime('%b %d %Y %I:%M%p')
+        fetch_post['totalAnswers'] = len(fetch_post['comments'])
+    else:
+        fetch_post = []
+        return abort(404)
+    return render_template('post.html', title='ShareBytes | View post', post=fetch_post, user=session['user'])
+
+@app.route('/ask-question')
+def question():
+    if not 'userToken' in session:
+        session['error'] = 'You must login to access this page'
+        session['redirectPage'] = '/ask-question'
+        return redirect('/login')
+
+    token_document = mongo.db.user_tokens.find_one({
+        'sessionHash': session['userToken']
+    })
+    if token_document is None:
+        session.pop('userToken', None)
+        session['error'] = 'You must login again to access this page'
+        return redirect('/login')
+
+    userId = token_document['userID']
+    users = mongo.db.users.find_one({
+        '_id': userId
+    })
+    return render_template('question.html', title='ShareBytes | Ask your question', user=users['email'])
+
+@app.route('/post-question', methods=['POST'])
+def addQuestion():
+    if request.method == 'POST':
+        question = request.form['question']
+        description = request.form['description']
+        result = mongo.db.posts.insert_one({
+            'question': question,
+            'description': description,
+            'user': session['user'],
+            'deleted': 0,
+            'comments': [],
+            'postedAt': datetime.utcnow(),
+        })
+        return redirect(url_for('post', id=result.inserted_id))
+
+@app.route('/add-comment/<id>', methods=['POST'])
+def addComment(id):
+    if request.method == 'POST':
+        comment = request.form['comment']
+        post = mongo.db.posts.update({
+            '_id': ObjectId(id)
+        }, {
+            '$push': {
+                'comments': {
+                    'message': comment,
+                    'postedBy': session['user'],
+                    'postedAt': datetime.utcnow()
+                }
+            }
+        })
+        return redirect(url_for('post', id=ObjectId(id)))
 
 if __name__ == '__main__':
     app.run(debug=True) # Debug set to True for development purpose
