@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="blog-container default-font">
+        <div class="blog-top d-flex justify-content-center align-items-center flex-column">
+            <span class="navbar-brand-extra text-center mt-1"> <span>S</span>hare<span>B</span>ytes </span>
+            <p class="welcome"> Our Official Blog </p>
+            <p class="welcome2"> Here, You can find the latest updates related to ShareBytes! </p>
+            <div class="blog-vector-container"> </div>
+        </div>
+        <div class="recent-blogs">
+            <h2> Latest Blogs </h2>
+            <hr class="hr3" />
+            {% for item in blogs %}
+            <a href="{{ url_for('blogPost', id=item['postId']) }}" class="card blog-card my-3 d-flex justify-content-center align-items-center flex-row py-2 px-4">
+                <div class="card-body py-2 px-3">
+                    <span class="card-title"> {{ item['title'] }} </span>
+                </div>
+                <div> <span class="material-icons">arrow_forward_ios</span> </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% include 'partials/footer.html' %}
+{% endblock %}

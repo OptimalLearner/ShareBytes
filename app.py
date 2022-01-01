@@ -507,5 +507,19 @@ def addComment(id):
         })
         return redirect(url_for('post', id=ObjectId(id)))
 
+@app.route('/blog')
+def blog():
+    post = mongo.db.all_blogs.find({})
+    return render_template('blog.html', title='ShareBytes | Blog', blogs=post)
+
+@app.route('/blog-post/<id>')
+def blogPost(id):
+    blog = mongo.db.blog.find_one({
+        '_id': ObjectId(id)
+    })
+    title = 'ShareBytes | ' + blog['title']
+    blog['content'] = blog['content'].split('\n')
+    return render_template('blog_post.html', title=title, blog=blog)
+
 if __name__ == '__main__':
     app.run(debug=True) # Debug set to True for development purpose
