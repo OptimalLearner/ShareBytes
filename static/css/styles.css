@@ -626,7 +626,7 @@ footer .footer-bottom-container {
     border-radius: 5px;
     padding: 20px;
 }
-.upload-file-modal-button, .copy-link-btn {
+.upload-file-modal-button, .copy-link-btn, .final-delete-btn {
     width: 250px;
     background-color: #343434;
     color: #F7FFF7;
@@ -634,11 +634,11 @@ footer .footer-bottom-container {
     padding: 5px 25px;
     border-radius: 20px;
 }
-.upload-file-modal-button:hover, .copy-link-btn:hover {
+.upload-file-modal-button:hover, .copy-link-btn:hover, .final-delete-btn:hover {
     background-color: #6CA6C1;
     color: #F7FFF7;
 }
-.copy-link-btn {
+.copy-link-btn, .final-delete-btn {
     padding: 5px 10px;
     border-radius: 10px;
     font-size: 16px;

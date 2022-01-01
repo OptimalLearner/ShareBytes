@@ -364,6 +364,8 @@ def fileNotFound(e):
 
 @app.route('/handle-delete/<id>')
 def handleDelete(id):
+    print(id)
+    print(ObjectId(id))
     post = mongo.db.files.update({
         '_id': ObjectId(id)
     }, {

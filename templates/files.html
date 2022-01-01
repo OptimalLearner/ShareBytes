@@ -70,7 +70,7 @@
                         <td>{{ file['originalFileName'] }}</td>
                         <td>{{ file['fileSize'] }}</td>
                         <td>{{ file['formattedTime'] }}</td>
-                        <td class="d-flex justify-content-center align-items-center"> <button class="btn share-file-btn" data-bs-toggle="modal" data-bs-target="#shareFileModal" data-bs-fileid="{{ file['_id'] }}" data-bs-filename="{{ file['originalFileName'] }}"> Share </button> <a href="{{ url_for('handleDelete', id=file['_id']) }}" class="btn delete-file-btn" data-bs-fileid="{{ file['_id'] }}"> Delete </a> </td>
+                        <td class="d-flex justify-content-center align-items-center"> <button class="btn share-file-btn" data-bs-toggle="modal" data-bs-target="#shareFileModal" data-bs-fileid="{{ file['_id'] }}" data-bs-filename="{{ file['originalFileName'] }}"> Share </button> <button class="btn delete-file-btn" data-bs-toggle="modal" data-bs-target="#deleteFileModal" data-bs-fileid="{{ file['_id'] }}"> Delete </button> </td>
                     </tr>
                     {% endfor %}                   
                 </tbody>
@@ -115,6 +115,21 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="deleteFileModal" tabindex="-1" aria-labelledby="deleteFileModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel"> Delete your file </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center"> Are you sure you want to delete this file? </p>
+                    <a class="btn final-delete-btn d-flex justify-content-center align-items-center my-3 mx-auto"> Delete File </a>
+                </div>
+            </div>
+        </div>
+    </div>
     {% include 'partials/footer.html' %}
 {% endblock %}
 
@@ -138,7 +153,12 @@
             const slugifiedFileName = sligify(fileName);
             const permaLink = 'http://localhost:5000' + '/download/' + fileId + '/' + slugifiedFileName;
             document.querySelector(".file-link").innerHTML = permaLink;
-            }))
+            }));
+
+            [...document.querySelectorAll(".delete-file-btn")].forEach(el => el.addEventListener('click',function (e) {
+            const fileId = this.getAttribute("data-bs-fileid");
+            document.querySelector("#deleteFileModal .final-delete-btn").href = `http://localhost:5000/handle-delete/${fileId}`;
+            }));
         });
 
         function handleCopyText() {
