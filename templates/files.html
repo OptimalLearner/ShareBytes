@@ -108,7 +108,7 @@
                 <div class="modal-body">
                     <p class="text-center"> You can share the link of your file with your friends/colleagues. </p>
                     <div class="file-link-container text-center d-flex flex-row row mx-2" data-bs-placement="bottom" title="Text Copied">
-                        <div class="col-12 file-link"> http:localhost:5000/files/fjd66d67g656d6g4d6h/abc.png </div>
+                        <div class="col-12 file-link"> File Link Not Available </div>
                     </div>
                     <button class="btn copy-link-btn d-flex justify-content-center align-items-center my-3 mx-auto"> Copy Link To Clipboard <span class="material-icons ps-1"> content_copy </span> </button>
                 </div>
@@ -151,25 +151,28 @@
             const fileId = this.getAttribute("data-bs-fileid");
             const fileName = this.getAttribute("data-bs-filename");
             const slugifiedFileName = sligify(fileName);
-            const permaLink = 'http://localhost:5000' + '/download/' + fileId + '/' + slugifiedFileName;
+            const permaLink = "{{ domain }}" + '/download/' + fileId + '/' + slugifiedFileName;
             document.querySelector(".file-link").innerHTML = permaLink;
             }));
 
             [...document.querySelectorAll(".delete-file-btn")].forEach(el => el.addEventListener('click',function (e) {
             const fileId = this.getAttribute("data-bs-fileid");
-            document.querySelector("#deleteFileModal .final-delete-btn").href = `http://localhost:5000/handle-delete/${fileId}`;
+            document.querySelector("#deleteFileModal .final-delete-btn").href = "{{ url_for('handleDelete', id='FILEID') }}".replace("FILEID", fileId);
             }));
         });
 
         function handleCopyText() {
             const cb = navigator.clipboard;
             const text = document.querySelector('.file-link');
-            cb.writeText(text.innerText).then(() => alert('Text copied'));
-            document.querySelector(".file-link-container").tooltip("show");
+            if (cb && window.isSecureContext) {
+                cb.writeText(text.innerText).then(() => alert('Text copied'));
+                document.querySelector(".file-link-container").tooltip("show");
+            } else {
+                document.querySelector(".copy-link-btn").innerHTML = "Copy The Above Link";
+            }
         }
 
         document.querySelector(".copy-link-btn").addEventListener("click", handleCopyText)
-
 
     </script>
 {% endblock %}

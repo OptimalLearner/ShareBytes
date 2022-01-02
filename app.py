@@ -27,7 +27,8 @@ def index():
 
     # user_documents = list(user_documents)
     # print(user_documents)
-    return render_template('index.html', title='ShareBytes | Store and Share Your File With Anyone, Anywhere')
+    
+    return render_template('index.html', title='ShareBytes | Store and Share Your File With Anyone, Anywhere', domain=request.url_root)
 
 # Displays login page
 @app.route('/login')
@@ -127,7 +128,7 @@ def main():
 
     file_count = uploaded_files.count()
     user = session['user']
-    return render_template('files.html', title='ShareBytes | Store and Share your file anyone, anywhere', user=user, uploadedFiles=uploaded_files_for_display, fileCount=file_count, error=error, success=success)
+    return render_template('files.html', title='ShareBytes | Store and Share your file anyone, anywhere', user=user, uploadedFiles=uploaded_files_for_display, fileCount=file_count, error=error, success=success, domain=request.url_root)
 
 @app.route('/handle-register', methods=['POST'])
 def handleRegister():
@@ -327,7 +328,7 @@ def showDownloadPage(fileId, fileNameSlugified):
     file_object['createdAt'] = str(date_diff.days) + ' days ago' if date_diff.days < 31 else file_object['createdAt'].strftime("%Y-%m-%d")
         
 
-    return render_template('download.html', title='ShareBytes | Download Your File', user=users['email'], file=file_object)
+    return render_template('download.html', title='ShareBytes | Download Your File', user=users['email'], file=file_object, domain=request.url_root)
 
 @app.route('/download-file/<fileId>', methods=['GET'])
 def downloadFile(fileId):
@@ -397,8 +398,8 @@ def downloadDesktopApp():
         if back is None:
             raise Exception
     except:
-        back = 'http://localhost:5000'
-    return render_template('desktop_app.html', title='ShareBytes | Desktop App Coming Soon', back=back)
+        back = request.url_root
+    return render_template('desktop_app.html', title='ShareBytes | Desktop App Coming Soon', back=back, domain=request.url_root)
 
 @app.route('/contact')
 def contact():
@@ -428,7 +429,7 @@ def getContactDetails():
 @app.route('/help-forum')
 def helpForum():
     all_posts = mongo.db.posts.find({})
-    return render_template('help_forum.html', title='ShareBytes | Help Forum', posts=all_posts)
+    return render_template('help_forum.html', title='ShareBytes | Help Forum', posts=all_posts, domain=request.url_root)
 
 @app.route('/post/<id>')
 def post(id):
@@ -510,7 +511,7 @@ def addComment(id):
 @app.route('/blog')
 def blog():
     post = mongo.db.all_blogs.find({})
-    return render_template('blog.html', title='ShareBytes | Blog', blogs=post)
+    return render_template('blog.html', title='ShareBytes | Blog', blogs=post, domain=request.url_root)
 
 @app.route('/blog-post/<id>')
 def blogPost(id):

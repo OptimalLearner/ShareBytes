@@ -8,7 +8,7 @@ document.querySelector(".newsletter-btn").addEventListener("click", () => {
     if(!validateEmail(emailForNewsletter)) {
         return;
     }
-    fetch('http://localhost:5000/subscribe-to-newsletter', {
+    fetch(domain + newsletterUrl, {
         method: "POST",
         headers : { 
             'Content-Type': 'application/json',
