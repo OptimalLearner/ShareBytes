@@ -31,12 +31,6 @@ mail = Mail(app)
 # Displays index page
 @app.route('/')
 def index():
-    # user_documents = mongo.db.users.find({})
-    # print(user_documents)
-
-    # user_documents = list(user_documents)
-    # print(user_documents)
-    
     return render_template('index.html', title='ShareBytes | Store and Share Your File With Anyone, Anywhere', domain=request.url_root)
 
 # Displays login page
@@ -267,7 +261,6 @@ def handleForgotPassword():
             session['error'] = 'Email not registered!'
             return redirect('/forgot-password')
         try:
-            print('In Try')
             msg = Message(
                 'ShareBytes Password Reset Request',
                 sender = os.environ.get('MAIL_USERNAME'),
@@ -277,7 +270,6 @@ def handleForgotPassword():
             domain = request.url_root
             userId = str(user['_id'])
             url = domain + '' + 'reset-password/' + userId + '/' + code
-            print(url)
             user = mongo.db.users.update({
                 'email': email
             }, {
@@ -286,12 +278,10 @@ def handleForgotPassword():
                 }
             })
             msg.html = render_template('mail_content.html', url=url)
-            print('hello')
             mail.send(msg)
         except Exception as e:
             print(e.__class__)
             session['error'] = 'There was a problem while resetting! Please enter a valid email or try again later!!'
-            print('except')
             return redirect('/forgot-password')
         session['emailed'] = 'Email for password reset sent to the above email.'
         return redirect('/forgot-password')
@@ -373,7 +363,6 @@ def handleFileUpload():
             session['error'] = 'No file uploaded!'
             return redirect('/main')
         uploaded_file = request.files['uploaded_file']
-        print(uploaded_file)
 
         if uploaded_file.filename == '':
             session['error'] = 'No file selected!'
@@ -480,8 +469,6 @@ def fileNotFound(e):
 
 @app.route('/handle-delete/<id>')
 def handleDelete(id):
-    print(id)
-    print(ObjectId(id))
     post = mongo.db.files.update({
         '_id': ObjectId(id)
     }, {
@@ -496,7 +483,6 @@ def handleDelete(id):
 def addEmailToNewsletterList():
     if request.method == 'POST':
         email = request.json['newsletterEmail']
-        print(email)
         token_document = mongo.db.newsletter.find_one({
             'email': email
         })
@@ -533,7 +519,6 @@ def getContactDetails():
         name = request.form['contact-name'].strip()
         email = request.form['contact-email'].strip()
         message = request.form['contact-message'].strip()
-        print(name, message, email)
         result = mongo.db.contact_us_details.insert_one({
             'name': name,
             'email': email,
