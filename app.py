@@ -1,8 +1,9 @@
 # Import all the necessary modules here
 from flask import Flask, render_template, abort, request, redirect, session, send_file, url_for
 from flask_pymongo import PyMongo
+from flask_mail import *
 from cfg import config
-from utils import get_random_string
+from utils import get_random_string, get_pass_code
 from werkzeug.utils import secure_filename
 import json
 import math
@@ -18,6 +19,14 @@ app.config["MONGO_URI"] = config['mongo_uri']
 app.config["UPLOAD_FOLDER"] = 'uploads'
 app.config["MAX_CONTENT_LENGTH"] = 1024 * 1024 *10
 mongo = PyMongo(app)
+
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+mail = Mail(app)
 
 # Displays index page
 @app.route('/')
@@ -177,7 +186,8 @@ def handleRegister():
             'password': password,
             'lastLoginDate': None,
             'createdAt': datetime.utcnow(),
-            'updatedAt': datetime.utcnow()
+            'updatedAt': datetime.utcnow(),
+            'code': None
         })
         # Registration Successful
         session['registerSuccess'] = 'Your user account is ready. You can log in now.'
@@ -226,6 +236,111 @@ def checkLogin():
             path = session['redirectPage']
             session['redirectPage'] = '/main'
             return redirect(path)
+
+@app.route('/forgot-password')
+def forgotPassword():
+    error = ''
+    # Add error message if any
+    if 'error' in session:
+        error = session['error']
+        session.pop('error', None)
+    
+    success = ''
+    # Add error message if any
+    if 'emailed' in session:
+        success = session['emailed']
+        session.pop('emailed', None)
+    return render_template('forgot_password.html', title='Forgot Your Password', error=error, success=success)
+
+@app.route('/handle-forgot-password', methods=['POST'])
+def handleForgotPassword():
+    if request.method == 'POST':
+        email = request.form['your-email'].strip()
+        if email == '':
+            session['error'] = 'No Email entered!'
+            return redirect('/forgot-password')
+
+        user = mongo.db.users.find_one({
+            'email': email
+        })
+        if user is None:
+            session['error'] = 'Email not registered!'
+            return redirect('/forgot-password')
+        try:
+            print('In Try')
+            msg = Message(
+                'ShareBytes Password Reset Request',
+                sender = os.environ.get('MAIL_USERNAME'),
+                recipients = [email]
+            )
+            code = get_pass_code()
+            domain = request.url_root
+            userId = str(user['_id'])
+            url = domain + '' + 'reset-password/' + userId + '/' + code
+            print(url)
+            user = mongo.db.users.update({
+                'email': email
+            }, {
+                '$set': {
+                    'code': code
+                }
+            })
+            msg.html = render_template('mail_content.html', url=url)
+            print('hello')
+            mail.send(msg)
+        except Exception as e:
+            print(e.__class__)
+            session['error'] = 'There was a problem while resetting! Please enter a valid email or try again later!!'
+            print('except')
+            return redirect('/forgot-password')
+        session['emailed'] = 'Email for password reset sent to the above email.'
+        return redirect('/forgot-password')
+
+@app.route('/reset-password/<userId>/<code>')
+def resetPassword(userId, code):
+    error = ''
+    # Add error message if any
+    if 'error' in session:
+        error = session['error']
+        session.pop('error', None)
+
+    result = mongo.db.users.find_one({
+        '_id': ObjectId(userId)
+    })
+    if result['code'] != code:
+        session['error'] = 'Your code has expired. Try to reset your password again!'
+        return redirect('/forgot-password')
+
+    return render_template('reset_password.html', title='ShareBytes | Reset Password', error=error)
+
+@app.route('/handle-reset-password', methods=['POST'])
+def handleResetPassword():
+    if request.method == 'POST':
+        password = request.form['your-password'].strip()
+        code = request.referrer.split('/')[-1]
+        uid = request.referrer.split('/')[-2]
+        if password == '':
+            session['error'] = 'No Password entered!'
+            return redirect('/reset-password/'+uid+'/'+code)
+
+        result = mongo.db.users.find_one({
+            '_id': ObjectId(uid)
+        })
+        if result is None:
+            session['error'] = 'There was some problem updating the password.'
+            return redirect('/reset-password/'+uid+'/'+code)
+
+        password = sha256(password.encode('utf-8')).hexdigest()
+        result = mongo.db.users.update({
+            '_id': ObjectId(uid)
+        }, {
+            '$set': {
+                'password': password,
+                'code': None
+            }
+        })
+        session['registerSuccess'] = 'Password Updated Successfully'
+        return redirect('/login')
 
 @app.route('/logout')
 def logout():
@@ -370,7 +485,9 @@ def handleDelete(id):
     post = mongo.db.files.update({
         '_id': ObjectId(id)
     }, {
-        'isActive': False
+        '$set': {
+            'isActive': False
+        }
     })
     session['fileDeleted'] = 'The selected file has ben deleted!'
     return redirect('/main')
