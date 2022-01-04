@@ -2,7 +2,6 @@
 from flask import Flask, render_template, abort, request, redirect, session, send_file, url_for
 from flask_pymongo import PyMongo
 from flask_mail import *
-from cfg import config
 from utils import get_random_string, get_pass_code
 from werkzeug.utils import secure_filename
 import json
@@ -11,6 +10,11 @@ import os
 from hashlib import sha256
 from datetime import datetime
 from bson import ObjectId
+
+from dotenv import load_dotenv
+load_dotenv() # loads the environment variables
+
+from cfg import config
 
 app = Flask(__name__)
 app.secret_key = b'delph@!#78d%'
@@ -625,4 +629,5 @@ def blogPost(id):
     return render_template('blog_post.html', title=title, blog=blog)
 
 if __name__ == '__main__':
-    app.run()
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
