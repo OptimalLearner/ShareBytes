@@ -625,4 +625,4 @@ def blogPost(id):
     return render_template('blog_post.html', title=title, blog=blog)
 
 if __name__ == '__main__':
-    app.run(debug=True) # Debug set to True for development purpose
+    app.run()
