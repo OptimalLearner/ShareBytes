@@ -8,6 +8,8 @@ After uploading a file, each file will have a permanent link, which can be share
 
 Maximum size limit for individual file in 10 MB. Supported file types includes jpg, jpeg, png, gif and svg currently. If a user uploads any file that is not included in the mentioned file types and the uploaded file size is above the max file size then the app will reject the file. The application also has a support help forum where new users can ask their doubts and other active users can answer.
 
+## :globe_with_meridians: Check out the live app: [ShareBytes](http://share-bytes.herokuapp.com/)
+
 **Tech Stack Used:** HTML5, CSS, JavaScript, Bootstrap 5, Flask  
 **Database Used:** MongoDB  
 **Vector Illustrations:** All vector illustrations used in this project are taken from [undraw.co](https://undraw.co/)  
