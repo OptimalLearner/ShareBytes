@@ -1,0 +1,23 @@
+[{
+  "_id": {
+    "$oid": "61d07aa1579e0e933d6c1f2d"
+  },
+  "title": "ShareBytes Desktop App to be launched soon",
+  "content": "ShareBytes Desktop is expected to launch soon as a full-fledged desktop app for computers.\nUsers will no longer have to use a web-client for running the app through a browser on the PC or keep their smartphones connected to the Internet as the new ShareBytes for desktop supports file uploading and sharing directly from the PC on both Windows and Mac Operating Systems.\nThe latest release of our web interface improves users' experience and allows you to see all the files in one interface.\nThe Desktop Version will have the same features as of the web version but will be handy for users to use from thier computers.\nWe are also embracing our users' suggestions and trying to integrate some new features in the existing application making thigs easy for our users. The Limit for the file size will also be increased to 50MB from 10MB.\nTill then keep using our Web Interface and keep Sharing!!!",
+  "postedBy": "Admin",
+  "postedOn": "Jan 01, 2022",
+  "timeToRead": "2 min read",
+  "imageURL": "ShareBytes-Desktop-App.png",
+  "imageAltText": "ShareBytes Desktop App Coming Soon!"
+},{
+  "_id": {
+    "$oid": "61d07aa1579e0e933d6c1f2f"
+  },
+  "title": "We are live now with our new Web User Interface",
+  "content": "NEW! Easier! Just one click away!\nEach year, people are creating more content and using more devices to access that content. So it's more critical than ever to be able to keep files and photos safe.\nWe're delighted to announce the launch of the ShareBytes Web App. Sharing is easier than ever. The latest release of our web interface improves users' experience and allows you to see all the files in one interface.\nWe have embraced our users' suggestions and integrated a new and functional help forum. ShareBytes doesn't just store your files - the real magic is in the way we work together. You can share the files with others using the sharable links. Anyone with the link can send you/ view a file (no need to have a ShareBytes account).\nShareBytes offers a secure way to send files and collaborate with external users. Directly share files and folders with an easy to get shareable links.\nAnd that's a wrap! We hope to come back with more such compelling feature enhancements next year. Until then, take care and have a joy-filled holiday season.",
+  "postedBy": "Admin",
+  "postedOn": "Nov 26, 2021",
+  "timeToRead": "3 min read",
+  "imageURL": "ShareBytes-Web-App.png",
+  "imageAltText": "Latest ShareBytes Web App"
+}]
