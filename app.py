@@ -14,12 +14,10 @@ from bson import ObjectId
 from dotenv import load_dotenv
 load_dotenv() # loads the environment variables
 
-from cfg import config
-
 app = Flask(__name__)
 app.secret_key = b'delph@!#78d%'
 # Set configurations for flask environment
-app.config["MONGO_URI"] = os.environ.get('mongo_uri')
+app.config["MONGO_URI"] = f'mongodb://{os.environ.get("MONGO_USER")}:{os.environ.get("MONGO_PASSWORD")}@cluster0-shard-00-00.pcszv.mongodb.net:27017,cluster0-shard-00-01.pcszv.mongodb.net:27017,cluster0-shard-00-02.pcszv.mongodb.net:27017/{os.environ.get("MONGO_DB")}?ssl=true&replicaSet=atlas-duk28h-shard-0&authSource=admin&retryWrites=true&w=majority'
 app.config["UPLOAD_FOLDER"] = 'uploads'
 app.config["MAX_CONTENT_LENGTH"] = 1024 * 1024 *10
 mongo = PyMongo(app)
