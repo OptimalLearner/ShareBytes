@@ -19,7 +19,7 @@ from cfg import config
 app = Flask(__name__)
 app.secret_key = b'delph@!#78d%'
 # Set configurations for flask environment
-app.config["MONGO_URI"] = config['mongo_uri']
+app.config["MONGO_URI"] = os.environ.get('mongo_uri')
 app.config["UPLOAD_FOLDER"] = 'uploads'
 app.config["MAX_CONTENT_LENGTH"] = 1024 * 1024 *10
 mongo = PyMongo(app)
