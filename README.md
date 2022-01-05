@@ -8,8 +8,8 @@ After uploading a file, each file will have a permanent link, which can be share
 
 Maximum size limit for individual file in 10 MB. Supported file types includes jpg, jpeg, png, gif and svg currently. If a user uploads any file that is not included in the mentioned file types and the uploaded file size is above the max file size then the app will reject the file. The application also has a support help forum where new users can ask their doubts and other active users can answer.
 
-**Tech Stack Used:** HTML5, CSS, JavaScript, Bootstrapp 5, Flask  
-**DataBase Used:** MongoDB  
+**Tech Stack Used:** HTML5, CSS, JavaScript, Bootstrap 5, Flask  
+**Database Used:** MongoDB  
 **Vector Illustrations:** All vector illustrations used in this project are taken from [undraw.co](https://undraw.co/)  
 **Company Logos** used in the app are taken from [Wikimedia](https://commons.wikimedia.org/)  
 
@@ -20,12 +20,14 @@ Maximum size limit for individual file in 10 MB. Supported file types includes j
     > pip install virtualenv  
 * Open command prompt (or terminal) and change the current working directory to location where you want to clone the repository.
 * Then type: git clone [https://github.com/OptimalLearner/ShareBytes.git](https://github.com/OptimalLearner/ShareBytes.git)
-* If the clone was successfully completed then a new sub directory may appear with the same name as the repository. Now change the currently directory to the new sub directory.
+* If the clone was successfully completed then a new sub directory may appear with the same name as the repository. Now change the current directory to the new sub directory.
 * Create and activate a virtualenv by using the following commands:
     > virtualenv venv  
     > venv/Scripts/activate
 * Install all the dependencies required to run the app:
     > $ pip install -r requirements.txt
-* Create a .env file in the root directory and copy the contents of env.sample file to the newly created .env file. Replace 'YOUR_EMAIL_ADDRESS' to your actual email address and 'YOUR_EMAIL_PASSWORD' to the password of the entered email address. This email and password are required for the functionality of reset password.
+* Create a `.env` file in the root directory and copy the contents of `.env.sample` file to the newly created .env file. Replace 'YOUR_EMAIL_ADDRESS' to your actual email address and 'YOUR_EMAIL_PASSWORD' to the password of the entered email address. This email and password are required for the functionality of reset password.
+* Set up the database using the instruction in the *`db`* directory under this repository.
+* In case you set up MongoDB on your local system, change the MongoDB URI in the code with your MongoDB URI, and if you set up your database on MongoDB Atlas, change the environment variables in the .env file.
 * Now run the app by using the below command:
     > python app.py
